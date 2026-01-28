@@ -14,8 +14,14 @@ interface ExportData {
 	sceneName: string
 }
 
+const isMobileViewport = (): boolean => {
+	if (typeof window === 'undefined') return false
+	return window.innerWidth < 768
+}
+
 export async function exportToPdf(data: ExportData): Promise<void> {
 	const { previewImage, selections, selectedTheme, sceneName } = data
+	const mobile = isMobileViewport()
 
 	const formatDate = (date: Date) => {
 		return date.toLocaleDateString('en-US', {
@@ -36,9 +42,22 @@ export async function exportToPdf(data: ExportData): Promise<void> {
 
 	const pageWidth = 8.5
 	const pageHeight = 11
-	const margin = 0.5
+	const margin = mobile ? 0.6 : 0.5
 	const contentWidth = pageWidth - 2 * margin
 	let yPos = margin
+
+	// Larger fonts on mobile for readability when viewing PDF on phone
+	const titleSize = mobile ? 18 : 20
+	const sectionSize = mobile ? 14 : 16
+	const bodySize = mobile ? 11 : 10
+	const smallSize = mobile ? 9 : 8
+	const swatchSize = mobile ? 0.35 : 0.3
+	const itemHeight = mobile ? 0.75 : 0.6
+	const itemsPerRow = mobile ? 1 : 2
+	const itemWidth = mobile ? contentWidth : (contentWidth - 0.2) / 2
+	const itemSpacing = mobile ? 0.15 : 0.2
+	const rowSpacing = mobile ? 0.25 : 0.2
+	const maxImageHeight = mobile ? 3.5 : 4
 
 	// Helper function to add text
 	const addText = (
@@ -73,17 +92,17 @@ export async function exportToPdf(data: ExportData): Promise<void> {
 	}
 
 	// Header
-	addText('Kitchen Preview', margin, yPos, 20, 'bold')
-	yPos += 0.3
+	addText('Kitchen Preview', margin, yPos, titleSize, 'bold')
+	yPos += mobile ? 0.35 : 0.3
 	addText(
 		`Scene: ${sceneName} | ${formatDate(new Date())}`,
 		margin,
 		yPos,
-		10,
+		bodySize,
 		'normal',
 		[107, 114, 128],
 	)
-	yPos += 0.4
+	yPos += mobile ? 0.45 : 0.4
 
 	// Draw header line
 	pdf.setDrawColor(229, 231, 235)
@@ -91,8 +110,8 @@ export async function exportToPdf(data: ExportData): Promise<void> {
 	yPos += 0.3
 
 	// Preview section
-	addText('Preview', margin, yPos, 16, 'bold')
-	yPos += 0.25
+	addText('Preview', margin, yPos, sectionSize, 'bold')
+	yPos += mobile ? 0.3 : 0.25
 
 	// Load and add preview image
 	try {
@@ -108,7 +127,6 @@ export async function exportToPdf(data: ExportData): Promise<void> {
 
 		// Calculate image dimensions to fit within content width
 		const maxImageWidth = contentWidth
-		const maxImageHeight = 4 // Max height in inches
 		const imgAspectRatio = img.width / img.height
 		let imgWidth = maxImageWidth
 		let imgHeight = imgWidth / imgAspectRatio
@@ -128,7 +146,7 @@ export async function exportToPdf(data: ExportData): Promise<void> {
 		yPos += imgHeight + 0.3
 	} catch (error) {
 		console.error('Error adding preview image:', error)
-		addText('Preview image unavailable', margin, yPos, 12, 'normal', [
+		addText('Preview image unavailable', margin, yPos, bodySize, 'normal', [
 			156, 163, 175,
 		])
 		yPos += 0.3
@@ -140,17 +158,17 @@ export async function exportToPdf(data: ExportData): Promise<void> {
 		yPos = margin
 	}
 
-	addText('Selected Textures', margin, yPos, 16, 'bold')
-	yPos += 0.25
+	addText('Selected Textures', margin, yPos, sectionSize, 'bold')
+	yPos += mobile ? 0.3 : 0.25
 
 	// Theme badge
 	if (selectedTheme) {
 		pdf.setFillColor(239, 246, 255)
-		pdf.roundedRect(margin, yPos - 0.15, 2, 0.25, 0.05, 0.05, 'F')
-		addText(`Theme: ${selectedTheme.name}`, margin + 0.1, yPos, 10, 'bold', [
+		pdf.roundedRect(margin, yPos - 0.15, mobile ? 2.5 : 2, mobile ? 0.3 : 0.25, 0.05, 0.05, 'F')
+		addText(`Theme: ${selectedTheme.name}`, margin + 0.1, yPos, bodySize, 'bold', [
 			30, 64, 175,
 		])
-		yPos += 0.4
+		yPos += mobile ? 0.5 : 0.4
 	}
 
 	// Texture items
@@ -161,13 +179,6 @@ export async function exportToPdf(data: ExportData): Promise<void> {
 		{ label: 'Floor', texture: selections.floor },
 		{ label: 'Background', texture: selections.background },
 	].filter((item) => item.texture)
-
-	const swatchSize = 0.3
-	const itemHeight = 0.6
-	const itemSpacing = 0.2
-	const itemsPerRow = 2
-	const itemWidth = (contentWidth - itemSpacing) / itemsPerRow
-	const rowSpacing = 0.2
 
 	for (let i = 0; i < textureItems.length; i++) {
 		const item = textureItems[i]
@@ -197,21 +208,21 @@ export async function exportToPdf(data: ExportData): Promise<void> {
 			drawRect(xPos + 0.1, itemY + 0.1, swatchSize, swatchSize, item.texture.value)
 		}
 
-		// Add text labels
-		const textX = xPos + swatchSize + 0.25
-		const textStartY = itemY + 0.15
+		// Add text labels (more spacing on mobile)
+		const textX = xPos + swatchSize + (mobile ? 0.3 : 0.25)
+		const textStartY = itemY + (mobile ? 0.18 : 0.15)
 
 		// Category label (uppercase)
-		addText(item.label.toUpperCase(), textX, textStartY, 7, 'normal', [
+		addText(item.label.toUpperCase(), textX, textStartY, smallSize, 'normal', [
 			107, 114, 128,
 		])
 
 		// Texture name
-		addText(item.texture.label, textX, textStartY + 0.15, 10, 'bold')
+		addText(item.texture.label, textX, textStartY + (mobile ? 0.18 : 0.15), bodySize, 'bold')
 
 		// Color value (if color type)
 		if (item.texture.type === 'color') {
-			addText(item.texture.value, textX, textStartY + 0.3, 8, 'normal', [
+			addText(item.texture.value, textX, textStartY + (mobile ? 0.38 : 0.3), smallSize, 'normal', [
 				107, 114, 128,
 			])
 		}
@@ -227,7 +238,7 @@ export async function exportToPdf(data: ExportData): Promise<void> {
 	pdf.setDrawColor(229, 231, 235)
 	pdf.line(margin, yPos, pageWidth - margin, yPos)
 	yPos += 0.2
-	pdf.setFontSize(9)
+	pdf.setFontSize(mobile ? 10 : 9)
 	pdf.setFont('helvetica', 'normal')
 	pdf.setTextColor(156, 163, 175)
 	pdf.text('Generated by Kitchen Preview Tool', pageWidth / 2, yPos, {
@@ -267,14 +278,9 @@ export async function captureSvgAsImage(
 					width = parseFloat(parts[2]) || width
 					height = parseFloat(parts[3]) || height
 				}
-			} else {
-				const computedWidth = svgElement.clientWidth || svgElement.getBoundingClientRect().width
-				const computedHeight = svgElement.clientHeight || svgElement.getBoundingClientRect().height
-				if (computedWidth > 0 && computedHeight > 0) {
-					width = computedWidth
-					height = computedHeight
-				}
 			}
+			// Always use viewBox / default dimensions for capture so PDF image is full resolution
+			// even when SVG is displayed small on mobile
 			
 			// Set explicit dimensions for high-quality rendering
 			svgClone.setAttribute('viewBox', `0 0 ${width} ${height}`)
