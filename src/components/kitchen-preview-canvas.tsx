@@ -207,15 +207,7 @@ export function KitchenPreviewCanvas({
 					defs.appendChild(pattern)
 				}
 
-				let fillValue = `url(#${patternId})`
-				
-				// Add tile pattern overlay for floors
-				if (isFloor) {
-					const tilePatternId = createTilePattern(svg, '#888')
-					// Use a group with both patterns
-					fillValue = `url(#${patternId})`
-					// Note: We'll apply the tile pattern as an overlay using a mask or separate element
-				}
+				const fillValue = `url(#${patternId})`
 
 				elements.forEach((el) => {
 					el.setAttribute('fill', fillValue)
