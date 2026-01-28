@@ -11,6 +11,39 @@
 	padding: 2rem;
 }
 
+.app--expired {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	background: #f8fafc;
+	padding: 2rem;
+}
+
+.app__expired-message {
+	text-align: center;
+	background: #ffffff;
+	padding: 3rem 2rem;
+	border-radius: 16px;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	border: 1px solid #e2e8f0;
+	max-width: 500px;
+}
+
+.app__expired-title {
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: #dc2626;
+	margin: 0 0 1rem 0;
+}
+
+.app__expired-text {
+	font-size: 1rem;
+	color: #64748b;
+	margin: 0;
+	line-height: 1.5;
+}
+
 .app__header {
 	display: flex;
 	align-items: center;

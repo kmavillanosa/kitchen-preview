@@ -33,6 +33,24 @@ function getDefaultSelections(): KitchenSelections {
 }
 
 function App() {
+	// Check if app has expired (January 31 or later)
+	const checkExpiration = () => {
+		const now = new Date()
+		const expirationDate = new Date(now.getFullYear(), 0, 31) // January 31 of current year
+		return now >= expirationDate
+	}
+
+	if (checkExpiration()) {
+		return (
+			<div className="app app--expired">
+				<div className="app__expired-message">
+					<h1 className="app__expired-title">This app has expired</h1>
+					<p className="app__expired-text">Please contact the developer</p>
+				</div>
+			</div>
+		)
+	}
+
 	const [contentReady, setContentReady] = useState(false)
 	useEffect(() => {
 		Promise.all([loadTextures(), loadScenes(), loadThemes()]).then(() =>
