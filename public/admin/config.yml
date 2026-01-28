@@ -1,0 +1,70 @@
+backend:
+	name: github
+	repo: # Set in your repo: owner/repo (e.g. myuser/kitchen-preview)
+	branch: main
+	base_url: https://kitchen-preview-admin.vercel.app  # Optional: use a proxy for OAuth; see README
+	site_domain: your-site.github.io
+
+# Uncomment for local development with the proxy
+# local_backend: true
+
+media_folder: "public/uploads"
+public_path: "/kitchen-preview/uploads"
+
+locale: "en"
+
+collections:
+	- name: "textures"
+		label: "Textures"
+		files:
+			- name: "textures"
+				label: "Texture options"
+				file: "public/content/textures.json"
+				format: "json"
+				fields:
+					- name: "textures"
+						label: "Textures"
+						widget: "list"
+						summary: "{{fields.label}} ({{fields.category}})"
+						fields:
+							- { name: "id", label: "ID", widget: "string" }
+							- { name: "label", label: "Label", widget: "string" }
+							- name: "category"
+								label: "Category"
+								widget: "select"
+								options:
+									- { label: "Countertop", value: "countertop" }
+									- { label: "Backsplash", value: "backsplash" }
+									- { label: "Cabinet", value: "cabinet" }
+									- { label: "Floor", value: "floor" }
+							- name: "type"
+								label: "Type"
+								widget: "select"
+								options:
+									- { label: "Color", value: "color" }
+									- { label: "Texture image", value: "texture" }
+							- { name: "value", label: "Value (hex color or image path)", widget: "string" }
+							- { name: "order", label: "Order", widget: "number", value_type: "int", min: 0 }
+
+	- name: "scenes"
+		label: "Preview images (scenes)"
+		files:
+			- name: "scenes"
+				label: "Scenes"
+				file: "public/content/scenes.json"
+				format: "json"
+				fields:
+					- name: "scenes"
+						label: "Scenes"
+						widget: "list"
+						summary: "{{fields.name}}"
+						fields:
+							- { name: "id", label: "ID", widget: "string" }
+							- { name: "name", label: "Name", widget: "string" }
+							- { name: "baseImageUrl", label: "Base image URL", widget: "string" }
+							- { name: "maskCountertopUrl", label: "Mask countertop URL", widget: "string" }
+							- { name: "maskBacksplashUrl", label: "Mask backsplash URL", widget: "string" }
+							- { name: "maskCabinetUrl", label: "Mask cabinet URL", widget: "string" }
+							- { name: "maskFloorUrl", label: "Mask floor URL", widget: "string" }
+							- { name: "isDefault", label: "Default scene", widget: "boolean", default: false }
+							- { name: "order", label: "Order", widget: "number", value_type: "int", min: 0 }

@@ -1,0 +1,78 @@
+.texture-selector {
+	margin-bottom: 1.5rem;
+}
+
+.texture-selector__title {
+	font-size: 0.875rem;
+	font-weight: 600;
+	margin: 0 0 0.5rem;
+	color: #374151;
+}
+
+.texture-selector__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.texture-selector__item {
+	display: block;
+}
+
+.texture-selector__option {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 0.75rem;
+	border: 2px solid #e5e7eb;
+	background: #fff;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 0.875rem;
+	transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.texture-selector__option:hover {
+	border-color: #9ca3af;
+}
+
+.texture-selector__option--selected {
+	border-color: #2563eb;
+	box-shadow: 0 0 0 1px #2563eb;
+}
+
+.texture-selector__swatch {
+	width: 24px;
+	height: 24px;
+	border-radius: 4px;
+	border: 1px solid #e5e7eb;
+	flex-shrink: 0;
+}
+
+.texture-selector__thumb {
+	width: 32px;
+	height: 24px;
+	object-fit: cover;
+	border-radius: 4px;
+	flex-shrink: 0;
+	border: 1px solid #e5e7eb;
+}
+
+.texture-selector__thumb--loading,
+.texture-selector__thumb--placeholder {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #f9fafb;
+}
+
+.texture-selector__thumb--placeholder {
+	background: #f3f4f6;
+}
+
+.texture-selector__label {
+	white-space: nowrap;
+}

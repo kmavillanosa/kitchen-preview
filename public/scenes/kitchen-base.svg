@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+	<defs>
+		<linearGradient id="floorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+			<stop offset="0%" style="stop-color:#6b5d4f;stop-opacity:1" />
+			<stop offset="100%" style="stop-color:#8b7355;stop-opacity:1" />
+		</linearGradient>
+		<linearGradient id="counterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+			<stop offset="0%" style="stop-color:#b0b0b0;stop-opacity:1" />
+			<stop offset="100%" style="stop-color:#909090;stop-opacity:1" />
+		</linearGradient>
+		<linearGradient id="cabinetGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+			<stop offset="0%" style="stop-color:#4a4a4a;stop-opacity:1" />
+			<stop offset="100%" style="stop-color:#3a3a3a;stop-opacity:1" />
+		</linearGradient>
+		<pattern id="tilePattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+			<rect width="40" height="40" fill="#e8e4dc"/>
+			<rect x="0" y="0" width="40" height="2" fill="#d0ccc4"/>
+			<rect x="0" y="0" width="2" height="40" fill="#d0ccc4"/>
+		</pattern>
+	</defs>
+	
+	<!-- Floor -->
+	<polygon id="floor-surface" points="0,420 800,450 800,600 0,600" fill="url(#floorGrad)"/>
+	<line x1="0" y1="480" x2="800" y2="510" stroke="#5a4d3f" stroke-width="1" opacity="0.4"/>
+	<line x1="0" y1="540" x2="800" y2="570" stroke="#5a4d3f" stroke-width="1" opacity="0.4"/>
+	<line x1="200" y1="420" x2="200" y2="600" stroke="#5a4d3f" stroke-width="1" opacity="0.3"/>
+	<line x1="400" y1="420" x2="400" y2="600" stroke="#5a4d3f" stroke-width="1" opacity="0.3"/>
+	<line x1="600" y1="420" x2="600" y2="600" stroke="#5a4d3f" stroke-width="1" opacity="0.3"/>
+	
+	<!-- Countertop surface -->
+	<polygon id="countertop-surface" points="0,320 800,340 800,420 0,400" fill="url(#counterGrad)"/>
+	<!-- Countertop edge/front -->
+	<rect x="0" y="400" width="800" height="20" fill="#707070"/>
+	<!-- Sink area (optional detail) -->
+	<ellipse cx="400" cy="360" rx="80" ry="30" fill="#808080" opacity="0.3"/>
+	
+	<!-- Backsplash -->
+	<rect id="backsplash-surface" x="0" y="0" width="800" height="180" fill="url(#tilePattern)"/>
+	<rect x="0" y="175" width="800" height="5" fill="#d0ccc4"/>
+	
+	<!-- Upper cabinets -->
+	<rect id="cabinet-surface-upper" x="20" y="180" width="760" height="140" fill="url(#cabinetGrad)"/>
+	<rect x="20" y="180" width="760" height="10" fill="#2a2a2a"/>
+	
+	<!-- Left cabinet doors -->
+	<rect x="40" y="190" width="220" height="120" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="2"/>
+	<line x1="150" y1="190" x2="150" y2="310" stroke="#2a2a2a" stroke-width="1"/>
+	<circle cx="150" cy="250" r="3" fill="#666"/>
+	
+	<!-- Center cabinet doors -->
+	<rect x="280" y="190" width="220" height="120" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="2"/>
+	<line x1="390" y1="190" x2="390" y2="310" stroke="#2a2a2a" stroke-width="1"/>
+	<circle cx="390" cy="250" r="3" fill="#666"/>
+	
+	<!-- Right cabinet doors -->
+	<rect x="520" y="190" width="220" height="120" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="2"/>
+	<line x1="630" y1="190" x2="630" y2="310" stroke="#2a2a2a" stroke-width="1"/>
+	<circle cx="630" cy="250" r="3" fill="#666"/>
+	
+	<!-- Lower cabinets (below counter) -->
+	<rect id="cabinet-surface-lower-1" x="40" y="420" width="220" height="100" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="2"/>
+	<rect id="cabinet-surface-lower-2" x="280" y="420" width="220" height="100" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="2"/>
+	<rect id="cabinet-surface-lower-3" x="520" y="420" width="220" height="100" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="2"/>
+	<line x1="150" y1="420" x2="150" y2="520" stroke="#2a2a2a" stroke-width="1"/>
+	<line x1="390" y1="420" x2="390" y2="520" stroke="#2a2a2a" stroke-width="1"/>
+	<line x1="630" y1="420" x2="630" y2="520" stroke="#2a2a2a" stroke-width="1"/>
+	<circle cx="150" cy="470" r="3" fill="#666"/>
+	<circle cx="390" cy="470" r="3" fill="#666"/>
+	<circle cx="630" cy="470" r="3" fill="#666"/>
+	
+	<!-- Appliance (oven/stove) in center -->
+	<rect x="300" y="420" width="180" height="100" fill="#1a1a1a" stroke="#0a0a0a" stroke-width="2"/>
+	<rect x="320" y="440" width="140" height="60" fill="#2a2a2a"/>
+	<circle cx="390" cy="470" r="15" fill="#3a3a3a"/>
+</svg>

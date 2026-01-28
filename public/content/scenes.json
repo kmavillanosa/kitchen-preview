@@ -1,0 +1,15 @@
+{
+	"scenes": [
+		{
+			"id": "kitchen-preview",
+			"name": "Kitchen Preview",
+			"baseImageUrl": "scenes/kitchen-preview.svg",
+			"maskCountertopUrl": "",
+			"maskBacksplashUrl": "",
+			"maskCabinetUrl": "",
+			"maskFloorUrl": "",
+			"isDefault": true,
+			"order": 0
+		}
+	]
+}

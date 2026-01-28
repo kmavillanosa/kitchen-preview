@@ -1,0 +1,194 @@
+[
+	{
+		"id": "countertop-marble-white",
+		"label": "White Marble",
+		"category": "countertop",
+		"type": "color",
+		"value": "#f5f5f0",
+		"order": 0
+	},
+	{
+		"id": "countertop-granite-dark",
+		"label": "Dark Gray Granite",
+		"category": "countertop",
+		"type": "color",
+		"value": "#4a4a4a",
+		"order": 1
+	},
+	{
+		"id": "countertop-quartz-white",
+		"label": "White Quartz",
+		"category": "countertop",
+		"type": "color",
+		"value": "#ffffff",
+		"order": 2
+	},
+	{
+		"id": "countertop-butcher-block",
+		"label": "Butcher Block",
+		"category": "countertop",
+		"type": "color",
+		"value": "#8b6914",
+		"order": 3
+	},
+	{
+		"id": "countertop-concrete",
+		"label": "Concrete",
+		"category": "countertop",
+		"type": "color",
+		"value": "#6b6b6b",
+		"order": 4
+	},
+	{
+		"id": "countertop-quartz-gray",
+		"label": "Gray Quartz",
+		"category": "countertop",
+		"type": "color",
+		"value": "#9e9e9e",
+		"order": 5
+	},
+	{
+		"id": "backsplash-subway-white",
+		"label": "White Subway",
+		"category": "backsplash",
+		"type": "color",
+		"value": "#f5f5f0",
+		"order": 0
+	},
+	{
+		"id": "backsplash-mosaic-blue",
+		"label": "Blue Tile",
+		"category": "backsplash",
+		"type": "color",
+		"value": "#4a6fa5",
+		"order": 1
+	},
+	{
+		"id": "backsplash-herringbone",
+		"label": "Beige Herringbone",
+		"category": "backsplash",
+		"type": "color",
+		"value": "#d4c4a8",
+		"order": 2
+	},
+	{
+		"id": "backsplash-brick",
+		"label": "Brick Red",
+		"category": "backsplash",
+		"type": "color",
+		"value": "#c97d60",
+		"order": 3
+	},
+	{
+		"id": "backsplash-stone",
+		"label": "Natural Stone",
+		"category": "backsplash",
+		"type": "color",
+		"value": "#9a9a8a",
+		"order": 4
+	},
+	{
+		"id": "backsplash-subway-gray",
+		"label": "Gray Subway",
+		"category": "backsplash",
+		"type": "color",
+		"value": "#9e9e9e",
+		"order": 5
+	},
+	{
+		"id": "cabinet-white",
+		"label": "White",
+		"category": "cabinet",
+		"type": "color",
+		"value": "#fafafa",
+		"order": 0
+	},
+	{
+		"id": "cabinet-gray",
+		"label": "Gray",
+		"category": "cabinet",
+		"type": "color",
+		"value": "#5c5c5c",
+		"order": 1
+	},
+	{
+		"id": "cabinet-navy",
+		"label": "Navy Blue",
+		"category": "cabinet",
+		"type": "color",
+		"value": "#2c3e50",
+		"order": 2
+	},
+	{
+		"id": "cabinet-walnut-wood",
+		"label": "Walnut",
+		"category": "cabinet",
+		"type": "color",
+		"value": "#4a3728",
+		"order": 3
+	},
+	{
+		"id": "cabinet-oak-wood",
+		"label": "Oak",
+		"category": "cabinet",
+		"type": "color",
+		"value": "#c4a35a",
+		"order": 4
+	},
+	{
+		"id": "cabinet-cream",
+		"label": "Cream",
+		"category": "cabinet",
+		"type": "color",
+		"value": "#f5e6d3",
+		"order": 5
+	},
+	{
+		"id": "floor-oak",
+		"label": "Oak",
+		"category": "floor",
+		"type": "color",
+		"value": "#c4a35a",
+		"order": 0
+	},
+	{
+		"id": "floor-tile-gray",
+		"label": "Gray Tile",
+		"category": "floor",
+		"type": "color",
+		"value": "#9e9e9e",
+		"order": 1
+	},
+	{
+		"id": "floor-dark-wood",
+		"label": "Dark Wood",
+		"category": "floor",
+		"type": "color",
+		"value": "#3d2914",
+		"order": 2
+	},
+	{
+		"id": "floor-light-wood",
+		"label": "Light Wood",
+		"category": "floor",
+		"type": "color",
+		"value": "#e8d4a0",
+		"order": 3
+	},
+	{
+		"id": "floor-stone",
+		"label": "Natural Stone",
+		"category": "floor",
+		"type": "color",
+		"value": "#8a8a7a",
+		"order": 4
+	},
+	{
+		"id": "floor-bamboo",
+		"label": "Bamboo",
+		"category": "floor",
+		"type": "color",
+		"value": "#d4c4a8",
+		"order": 5
+	}
+]
