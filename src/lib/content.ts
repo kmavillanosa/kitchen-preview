@@ -74,8 +74,13 @@ export function getTextures(): TextureOption[] {
 
 export function getTexturesByCategory(
 	category: TextureOption['category'],
+	type?: TextureOption['type'],
 ): TextureOption[] {
-	return getTextures().filter((t) => t.category === category)
+	let filtered = getTextures().filter((t) => t.category === category)
+	if (type) {
+		filtered = filtered.filter((t) => t.type === type)
+	}
+	return filtered
 }
 
 export function getScenes(): Scene[] {
@@ -101,6 +106,10 @@ export function getThemes(): Theme[] {
 	if (cachedThemes) return cachedThemes
 	const list = normalizeThemes(themesBundled)
 	return list.sort((a, b) => a.order - b.order)
+}
+
+export function clearThemeCache(): void {
+	cachedThemes = null
 }
 
 export function getThemeById(id: string): Theme | undefined {

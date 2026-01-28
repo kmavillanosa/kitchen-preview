@@ -131,6 +131,204 @@
 			"floor": "floor-light-wood",
 			"background": "background-cream",
 			"order": 11
+		},
+		{
+			"id": "texture-modern-luxury",
+			"name": "Modern Luxury",
+			"description": "Elegant textures with premium materials",
+			"countertop": "countertop-texture-ct0058",
+			"backsplash": "backsplash-texture-bs0263",
+			"cabinet": "cabinet-texture-oak-veneered",
+			"floor": "floor-texture-fl0083",
+			"background": "background-white",
+			"order": 12
+		},
+		{
+			"id": "texture-classic-elegance",
+			"name": "Classic Elegance",
+			"description": "Timeless textures with sophisticated appeal",
+			"countertop": "countertop-texture-ct0105",
+			"backsplash": "backsplash-texture-bs0354",
+			"cabinet": "cabinet-texture-oak",
+			"floor": "floor-texture-fl0089",
+			"background": "background-light-gray",
+			"order": 13
+		},
+		{
+			"id": "texture-warm-contemporary",
+			"name": "Warm Contemporary",
+			"description": "Cozy textures with modern design",
+			"countertop": "countertop-texture-ct0119",
+			"backsplash": "backsplash-texture-bs0360",
+			"cabinet": "cabinet-texture-benchmark-oak",
+			"floor": "floor-texture-fl0090",
+			"background": "background-cream",
+			"order": 14
+		},
+		{
+			"id": "texture-natural-harmony",
+			"name": "Natural Harmony",
+			"description": "Organic textures for a natural feel",
+			"countertop": "countertop-texture-ct0133",
+			"backsplash": "backsplash-texture-bs0361",
+			"cabinet": "cabinet-texture-oak",
+			"floor": "floor-texture-fl0091",
+			"background": "background-beige",
+			"order": 15
+		},
+		{
+			"id": "texture-urban-sophisticate",
+			"name": "Urban Sophisticate",
+			"description": "Modern textures for city living",
+			"countertop": "countertop-texture-ct0149",
+			"backsplash": "backsplash-texture-bs0415",
+			"cabinet": "cabinet-texture-osb",
+			"floor": "floor-texture-fl0104",
+			"background": "background-charcoal",
+			"order": 16
+		},
+		{
+			"id": "texture-coastal-retreat",
+			"name": "Coastal Retreat",
+			"description": "Light textures for a beachy vibe",
+			"countertop": "countertop-texture-ct0160",
+			"backsplash": "backsplash-texture-bs0473",
+			"cabinet": "cabinet-texture-oak-veneered",
+			"floor": "floor-texture-fl0105",
+			"background": "background-blue",
+			"order": 17
+		},
+		{
+			"id": "texture-rustic-charm",
+			"name": "Rustic Charm",
+			"description": "Textured surfaces with country appeal",
+			"countertop": "countertop-texture-ct0186",
+			"backsplash": "backsplash-texture-bs0263",
+			"cabinet": "cabinet-texture-douglas-fir",
+			"floor": "floor-texture-fl0106",
+			"background": "background-warm-gray",
+			"order": 18
+		},
+		{
+			"id": "texture-minimalist-texture",
+			"name": "Minimalist Texture",
+			"description": "Subtle textures for clean design",
+			"countertop": "countertop-texture-ct0309",
+			"backsplash": "backsplash-texture-bs0354",
+			"cabinet": "cabinet-texture-oak-veneered",
+			"floor": "floor-texture-fl0163",
+			"background": "background-white",
+			"order": 19
+		},
+		{
+			"id": "texture-industrial-texture",
+			"name": "Industrial Texture",
+			"description": "Raw textures for industrial style",
+			"countertop": "countertop-texture-ct0310",
+			"backsplash": "backsplash-texture-bs0360",
+			"cabinet": "cabinet-texture-osb",
+			"floor": "floor-texture-fl0169",
+			"background": "background-light-gray",
+			"order": 20
+		},
+		{
+			"id": "texture-luxury-marble",
+			"name": "Luxury Marble",
+			"description": "Premium marble textures throughout",
+			"countertop": "countertop-texture-ct0315",
+			"backsplash": "backsplash-texture-bs0361",
+			"cabinet": "cabinet-texture-olive-wood",
+			"floor": "floor-texture-fl0170",
+			"background": "background-cream",
+			"order": 21
+		},
+		{
+			"id": "texture-modern-farmhouse",
+			"name": "Modern Farmhouse",
+			"description": "Textured surfaces with farmhouse charm",
+			"countertop": "countertop-texture-ct0348",
+			"backsplash": "backsplash-texture-bs0415",
+			"cabinet": "cabinet-texture-benchmark-oak",
+			"floor": "floor-texture-fl0172",
+			"background": "background-almond",
+			"order": 22
+		},
+		{
+			"id": "texture-all-wood",
+			"name": "All Wood Texture",
+			"description": "Complete wood texture theme",
+			"countertop": "countertop-texture-ct0105",
+			"backsplash": "backsplash-texture-bs0360",
+			"cabinet": "cabinet-texture-oak",
+			"floor": "floor-texture-fl0089",
+			"background": "background-beige",
+			"order": 23
+		},
+		{
+			"id": "texture-oak-elegance",
+			"name": "Oak Elegance",
+			"description": "Premium oak textures throughout",
+			"countertop": "countertop-texture-ct0133",
+			"backsplash": "backsplash-texture-bs0354",
+			"cabinet": "cabinet-texture-oak-herringbone",
+			"floor": "floor-texture-fl0090",
+			"background": "background-cream",
+			"order": 24
+		},
+		{
+			"id": "texture-industrial-raw",
+			"name": "Industrial Raw",
+			"description": "Raw industrial textures with OSB cabinets",
+			"countertop": "countertop-texture-ct0310",
+			"backsplash": "backsplash-texture-bs0415",
+			"cabinet": "cabinet-texture-osb-alt",
+			"floor": "floor-texture-fl0169",
+			"background": "background-charcoal",
+			"order": 25
+		},
+		{
+			"id": "texture-coastal-oak",
+			"name": "Coastal Oak",
+			"description": "Light oak textures for coastal style",
+			"countertop": "countertop-texture-ct0160",
+			"backsplash": "backsplash-texture-bs0473",
+			"cabinet": "cabinet-texture-benchmark-oak",
+			"floor": "floor-texture-fl0105",
+			"background": "background-blue",
+			"order": 26
+		},
+		{
+			"id": "texture-rustic-wood",
+			"name": "Rustic Wood",
+			"description": "Natural wood textures for rustic appeal",
+			"countertop": "countertop-texture-ct0186",
+			"backsplash": "backsplash-texture-bs0263",
+			"cabinet": "cabinet-texture-douglas-fir",
+			"floor": "floor-texture-fl0106",
+			"background": "background-warm-gray",
+			"order": 27
+		},
+		{
+			"id": "texture-luxury-olive",
+			"name": "Luxury Olive",
+			"description": "Premium olive wood with elegant textures",
+			"countertop": "countertop-texture-ct0315",
+			"backsplash": "backsplash-texture-bs0361",
+			"cabinet": "cabinet-texture-olive-wood",
+			"floor": "floor-texture-fl0170",
+			"background": "background-almond",
+			"order": 28
+		},
+		{
+			"id": "texture-modern-oak",
+			"name": "Modern Oak",
+			"description": "Contemporary oak textures",
+			"countertop": "countertop-texture-ct0058",
+			"backsplash": "backsplash-texture-bs0354",
+			"cabinet": "cabinet-texture-oak-veneered",
+			"floor": "floor-texture-fl0163",
+			"background": "background-white",
+			"order": 29
 		}
 	]
 }

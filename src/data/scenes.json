@@ -9,5 +9,16 @@
 		"maskFloorUrl": "",
 		"isDefault": true,
 		"order": 0
+	},
+	{
+		"id": "kitchen-preview-2",
+		"name": "Kitchen Preview 2",
+		"baseImageUrl": "scenes/kitchen-preview-2.svg",
+		"maskCountertopUrl": "",
+		"maskBacksplashUrl": "",
+		"maskCabinetUrl": "",
+		"maskFloorUrl": "",
+		"isDefault": false,
+		"order": 1
 	}
 ]

@@ -42,3 +42,14 @@ export interface Theme {
 	background: string
 	order: number
 }
+
+export interface SavedDesign {
+	id: string
+	name: string
+	createdAt: string
+	updatedAt: string
+	selections: KitchenSelections
+	sceneId: string
+	themeId: string | null
+	thumbnail?: string
+}

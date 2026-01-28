@@ -1,4 +1,4 @@
-import { useState, KeyboardEvent } from 'react'
+import { useState, KeyboardEvent, useEffect } from 'react'
 import type { TextureOption } from '../types'
 import { getAssetUrl } from '../lib/content'
 import './texture-selector.css'
@@ -16,6 +16,26 @@ export function TextureSelector({
 	selectedId,
 	onSelect,
 }: TextureSelectorProps) {
+	// Preload all texture images when component mounts
+	useEffect(() => {
+		const textureOptions = options.filter(opt => opt.type === 'texture')
+		const preloadPromises = textureOptions.map(opt => {
+			return new Promise<void>((resolve) => {
+				const img = new Image()
+				img.onload = () => resolve()
+				img.onerror = () => {
+					console.warn(`Failed to preload texture: ${opt.value}`)
+					resolve() // Resolve anyway to not block other images
+				}
+				img.src = getAssetUrl(opt.value)
+			})
+		})
+		
+		Promise.all(preloadPromises).then(() => {
+			console.log(`[TextureSelector] Preloaded ${textureOptions.length} textures for ${title}`)
+		})
+	}, [options, title])
+
 	const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>, id: string) => {
 		if (e.key === 'Enter' || e.key === ' ') {
 			e.preventDefault()
@@ -113,7 +133,7 @@ function TextureImage({ src, alt }: { src: string; alt: string }) {
 				className="texture-selector__thumb"
 				src={src}
 				alt=""
-				loading="lazy"
+				loading="eager"
 				onLoad={() => setImageLoaded(true)}
 				onError={() => {
 					setImageError(true)

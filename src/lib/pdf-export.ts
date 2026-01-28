@@ -1,5 +1,6 @@
 import { jsPDF } from 'jspdf'
 import type { TextureOption, Theme } from '../types'
+import { getAssetUrl } from './content'
 
 interface ExportData {
 	previewImage: string
@@ -51,13 +52,15 @@ export async function exportToPdf(data: ExportData): Promise<void> {
 	const sectionSize = mobile ? 14 : 16
 	const bodySize = mobile ? 11 : 10
 	const smallSize = mobile ? 9 : 8
-	const swatchSize = mobile ? 0.35 : 0.3
-	const itemHeight = mobile ? 0.75 : 0.6
+	const swatchSize = mobile ? 0.5 : 0.45
+	const itemHeight = mobile ? 0.9 : 0.75
 	const itemsPerRow = mobile ? 1 : 2
-	const itemWidth = mobile ? contentWidth : (contentWidth - 0.2) / 2
-	const itemSpacing = mobile ? 0.15 : 0.2
-	const rowSpacing = mobile ? 0.25 : 0.2
+	const itemWidth = mobile ? contentWidth : (contentWidth - 0.25) / 2
+	const itemSpacing = mobile ? 0.2 : 0.25
+	const rowSpacing = mobile ? 0.3 : 0.25
 	const maxImageHeight = mobile ? 3.5 : 4
+	const swatchPadding = 0.1
+	const textLeftMargin = 0.15
 
 	// Helper function to add text
 	const addText = (
@@ -85,9 +88,11 @@ export async function exportToPdf(data: ExportData): Promise<void> {
 		const rgb = hexToRgb(color)
 		if (rgb) {
 			pdf.setFillColor(rgb.r, rgb.g, rgb.b)
-			pdf.rect(x, y, width, height, 'F')
-			pdf.setDrawColor(200, 200, 200)
-			pdf.rect(x, y, width, height, 'D')
+			pdf.roundedRect(x, y, width, height, 0.03, 0.03, 'F')
+			// Subtle border for better definition
+			pdf.setDrawColor(Math.max(0, rgb.r - 30), Math.max(0, rgb.g - 30), Math.max(0, rgb.b - 30))
+			pdf.setLineWidth(0.005)
+			pdf.roundedRect(x, y, width, height, 0.03, 0.03, 'D')
 		}
 	}
 
@@ -159,16 +164,21 @@ export async function exportToPdf(data: ExportData): Promise<void> {
 	}
 
 	addText('Selected Textures', margin, yPos, sectionSize, 'bold')
-	yPos += mobile ? 0.3 : 0.25
+	yPos += mobile ? 0.35 : 0.3
 
 	// Theme badge
 	if (selectedTheme) {
+		const badgeWidth = mobile ? 2.8 : 2.5
+		const badgeHeight = mobile ? 0.35 : 0.3
 		pdf.setFillColor(239, 246, 255)
-		pdf.roundedRect(margin, yPos - 0.15, mobile ? 2.5 : 2, mobile ? 0.3 : 0.25, 0.05, 0.05, 'F')
-		addText(`Theme: ${selectedTheme.name}`, margin + 0.1, yPos, bodySize, 'bold', [
+		pdf.roundedRect(margin, yPos - badgeHeight + 0.05, badgeWidth, badgeHeight, 0.06, 0.06, 'F')
+		pdf.setDrawColor(191, 219, 254)
+		pdf.setLineWidth(0.01)
+		pdf.roundedRect(margin, yPos - badgeHeight + 0.05, badgeWidth, badgeHeight, 0.06, 0.06, 'D')
+		addText(`Theme: ${selectedTheme.name}`, margin + 0.12, yPos - 0.05, bodySize, 'bold', [
 			30, 64, 175,
 		])
-		yPos += mobile ? 0.5 : 0.4
+		yPos += mobile ? 0.55 : 0.45
 	}
 
 	// Texture items
@@ -179,6 +189,53 @@ export async function exportToPdf(data: ExportData): Promise<void> {
 		{ label: 'Floor', texture: selections.floor },
 		{ label: 'Background', texture: selections.background },
 	].filter((item) => item.texture)
+
+	// Helper to load texture image and convert to data URI
+	const loadTextureThumbnail = async (textureValue: string): Promise<string | null> => {
+		return new Promise((resolve) => {
+			try {
+				const textureImg = new Image()
+				textureImg.crossOrigin = 'anonymous'
+				// Resolve the texture URL properly using getAssetUrl
+				const textureUrl = getAssetUrl(textureValue)
+				
+				textureImg.onload = () => {
+					try {
+						const thumbCanvas = document.createElement('canvas')
+						thumbCanvas.width = 100
+						thumbCanvas.height = 100
+						const thumbCtx = thumbCanvas.getContext('2d')
+						if (thumbCtx) {
+							thumbCtx.drawImage(textureImg, 0, 0, 100, 100)
+							const thumbDataUrl = thumbCanvas.toDataURL('image/png')
+							resolve(thumbDataUrl)
+							return
+						}
+					} catch (error) {
+						console.warn('[PDF Export] Failed to create texture thumbnail:', error)
+					}
+					resolve(null)
+				}
+				
+				textureImg.onerror = () => {
+					console.warn('[PDF Export] Failed to load texture image:', textureUrl)
+					resolve(null)
+				}
+				
+				textureImg.src = textureUrl
+				
+				// Timeout after 2 seconds
+				setTimeout(() => {
+					if (!textureImg.complete) {
+						resolve(null)
+					}
+				}, 2000)
+			} catch (error) {
+				console.warn('[PDF Export] Error loading texture:', error)
+				resolve(null)
+			}
+		})
+	}
 
 	for (let i = 0; i < textureItems.length; i++) {
 		const item = textureItems[i]
@@ -195,34 +252,77 @@ export async function exportToPdf(data: ExportData): Promise<void> {
 		const xPos = margin + col * (itemWidth + itemSpacing)
 		const itemY = yPos
 
-		// Draw background
-		pdf.setFillColor(249, 250, 251)
-		pdf.roundedRect(xPos, itemY, itemWidth, itemHeight, 0.05, 0.05, 'F')
+		// Draw background with subtle shadow effect
+		pdf.setFillColor(255, 255, 255)
+		pdf.roundedRect(xPos, itemY, itemWidth, itemHeight, 0.08, 0.08, 'F')
 
-		// Draw border
-		pdf.setDrawColor(229, 231, 235)
-		pdf.roundedRect(xPos, itemY, itemWidth, itemHeight, 0.05, 0.05, 'D')
+		// Draw border with better contrast
+		pdf.setDrawColor(209, 213, 219)
+		pdf.setLineWidth(0.01)
+		pdf.roundedRect(xPos, itemY, itemWidth, itemHeight, 0.08, 0.08, 'D')
 
-		// Draw color swatch
+		// Calculate centered swatch position
+		const swatchX = xPos + swatchPadding
+		const swatchY = itemY + (itemHeight - swatchSize) / 2
+
+		// Draw color swatch or texture image with border
 		if (item.texture.type === 'color') {
-			drawRect(xPos + 0.1, itemY + 0.1, swatchSize, swatchSize, item.texture.value)
+			// Draw swatch with border
+			drawRect(swatchX, swatchY, swatchSize, swatchSize, item.texture.value)
+			// Add a subtle border around the swatch
+			pdf.setDrawColor(200, 200, 200)
+			pdf.setLineWidth(0.005)
+			pdf.rect(swatchX, swatchY, swatchSize, swatchSize, 'D')
+		} else if (item.texture.type === 'texture') {
+			// For texture images, try to load and display a thumbnail
+			const thumbDataUrl = await loadTextureThumbnail(item.texture.value)
+			if (thumbDataUrl) {
+				try {
+					// Draw border around texture image
+					pdf.setDrawColor(200, 200, 200)
+					pdf.setLineWidth(0.005)
+					pdf.rect(swatchX, swatchY, swatchSize, swatchSize, 'D')
+					// Add the texture image
+					pdf.addImage(thumbDataUrl, 'PNG', swatchX, swatchY, swatchSize, swatchSize)
+				} catch (error) {
+					console.warn('[PDF Export] Failed to add texture image to PDF:', error)
+					// Fallback to gray rectangle
+					drawRect(swatchX, swatchY, swatchSize, swatchSize, '#cccccc')
+					pdf.setDrawColor(200, 200, 200)
+					pdf.setLineWidth(0.005)
+					pdf.rect(swatchX, swatchY, swatchSize, swatchSize, 'D')
+				}
+			} else {
+				// Fallback to gray rectangle if image fails to load
+				drawRect(swatchX, swatchY, swatchSize, swatchSize, '#cccccc')
+				pdf.setDrawColor(200, 200, 200)
+				pdf.setLineWidth(0.005)
+				pdf.rect(swatchX, swatchY, swatchSize, swatchSize, 'D')
+			}
 		}
 
-		// Add text labels (more spacing on mobile)
-		const textX = xPos + swatchSize + (mobile ? 0.3 : 0.25)
-		const textStartY = itemY + (mobile ? 0.18 : 0.15)
+		// Calculate text position (centered vertically, aligned to swatch)
+		const textX = xPos + swatchSize + swatchPadding + textLeftMargin
+		const textCenterY = itemY + itemHeight / 2
+		const textStartY = textCenterY - 0.12 // Offset to center text block
 
-		// Category label (uppercase)
+		// Category label (uppercase, smaller)
 		addText(item.label.toUpperCase(), textX, textStartY, smallSize, 'normal', [
 			107, 114, 128,
 		])
 
-		// Texture name
-		addText(item.texture.label, textX, textStartY + (mobile ? 0.18 : 0.15), bodySize, 'bold')
+		// Texture name (larger, bold)
+		const textureNameY = textStartY + (mobile ? 0.2 : 0.18)
+		addText(item.texture.label, textX, textureNameY, bodySize, 'bold')
 
-		// Color value (if color type)
+		// Color value or texture indicator (smaller, below name)
+		const valueY = textureNameY + (mobile ? 0.2 : 0.18)
 		if (item.texture.type === 'color') {
-			addText(item.texture.value, textX, textStartY + (mobile ? 0.38 : 0.3), smallSize, 'normal', [
+			addText(item.texture.value, textX, valueY, smallSize, 'normal', [
+				107, 114, 128,
+			])
+		} else if (item.texture.type === 'texture') {
+			addText('Texture Image', textX, valueY, smallSize, 'normal', [
 				107, 114, 128,
 			])
 		}
@@ -260,10 +360,80 @@ function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
 		: null
 }
 
+/**
+ * Convert an image URL to a data URI (base64)
+ */
+async function imageToDataUri(url: string): Promise<string> {
+	return new Promise((resolve, reject) => {
+		const img = new Image()
+		img.crossOrigin = 'anonymous'
+		
+		img.onload = () => {
+			try {
+				const canvas = document.createElement('canvas')
+				canvas.width = img.naturalWidth || img.width
+				canvas.height = img.naturalHeight || img.height
+				const ctx = canvas.getContext('2d')
+				if (!ctx) {
+					reject(new Error('Could not get canvas context'))
+					return
+				}
+				ctx.drawImage(img, 0, 0)
+				const dataUri = canvas.toDataURL('image/png')
+				resolve(dataUri)
+			} catch (error) {
+				reject(error)
+			}
+		}
+		
+		img.onerror = () => {
+			reject(new Error(`Failed to load image: ${url}`))
+		}
+		
+		img.src = url
+	})
+}
+
+/**
+ * Embed all external images in SVG patterns as data URIs
+ */
+async function embedSvgImages(svg: SVGSVGElement): Promise<void> {
+	// Find all <image> elements in patterns
+	const images = svg.querySelectorAll('pattern image, defs pattern image')
+	const imagePromises: Promise<void>[] = []
+	
+	images.forEach((imgElement) => {
+		const img = imgElement as SVGImageElement
+		// Get href from either href or xlink:href attribute
+		const href = img.getAttribute('href') || 
+			img.getAttributeNS('http://www.w3.org/1999/xlink', 'href') ||
+			img.getAttribute('xlink:href')
+		
+		if (href && !href.startsWith('data:')) {
+			// Only process external URLs, not data URIs
+			const promise = imageToDataUri(href)
+				.then((dataUri) => {
+					// Replace both href and xlink:href with data URI
+					img.setAttribute('href', dataUri)
+					img.setAttributeNS('http://www.w3.org/1999/xlink', 'href', dataUri)
+					console.log(`[PDF Export] Embedded image: ${href.substring(0, 50)}...`)
+				})
+				.catch((error) => {
+					console.warn(`[PDF Export] Failed to embed image ${href}:`, error)
+					// Continue even if one image fails
+				})
+			imagePromises.push(promise)
+		}
+	})
+	
+	// Wait for all images to be embedded
+	await Promise.all(imagePromises)
+}
+
 export async function captureSvgAsImage(
 	svgElement: SVGSVGElement,
 ): Promise<string> {
-	return new Promise((resolve, reject) => {
+	return new Promise(async (resolve, reject) => {
 		try {
 			const svgClone = svgElement.cloneNode(true) as SVGSVGElement
 			
@@ -287,12 +457,18 @@ export async function captureSvgAsImage(
 			svgClone.setAttribute('width', String(width))
 			svgClone.setAttribute('height', String(height))
 			svgClone.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+			svgClone.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xlink', 'http://www.w3.org/1999/xlink')
 			svgClone.style.width = String(width) + 'px'
 			svgClone.style.height = String(height) + 'px'
 
+			// Embed all external images as data URIs before serializing
+			console.log('[PDF Export] Embedding external images in SVG...')
+			await embedSvgImages(svgClone)
+			console.log('[PDF Export] Images embedded, serializing SVG...')
+
 			const svgData = new XMLSerializer().serializeToString(svgClone)
 			
-			// For now, use SVG data directly (images will be embedded if they're in the SVG)
+			// Create blob URL with embedded images
 			const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' })
 			const url = URL.createObjectURL(svgBlob)
 
@@ -325,17 +501,19 @@ export async function captureSvgAsImage(
 
 				const dataUrl = canvas.toDataURL('image/png', 1.0)
 				URL.revokeObjectURL(url)
+				console.log('[PDF Export] SVG converted to image successfully')
 				resolve(dataUrl)
 			}
 			
 			img.onerror = (error) => {
 				URL.revokeObjectURL(url)
-				console.error('Image load error:', error)
+				console.error('[PDF Export] Image load error:', error)
 				reject(new Error('Failed to load SVG as image'))
 			}
 			
 			img.src = url
 		} catch (error) {
+			console.error('[PDF Export] Error capturing SVG:', error)
 			reject(error)
 		}
 	})

@@ -65,6 +65,102 @@
 			"order": 7
 		},
 		{
+			"id": "countertop-texture-ct0058",
+			"label": "Countertop CT0058",
+			"category": "countertop",
+			"type": "texture",
+			"value": "textures/countertop/ct0058tn.jpg",
+			"order": 8
+		},
+		{
+			"id": "countertop-texture-ct0089",
+			"label": "Countertop CT0089",
+			"category": "countertop",
+			"type": "texture",
+			"value": "textures/countertop/ct0089tn.jpg",
+			"order": 9
+		},
+		{
+			"id": "countertop-texture-ct0105",
+			"label": "Countertop CT0105",
+			"category": "countertop",
+			"type": "texture",
+			"value": "textures/countertop/ct0105tn.jpg",
+			"order": 10
+		},
+		{
+			"id": "countertop-texture-ct0119",
+			"label": "Countertop CT0119",
+			"category": "countertop",
+			"type": "texture",
+			"value": "textures/countertop/ct0119tn.jpg",
+			"order": 11
+		},
+		{
+			"id": "countertop-texture-ct0133",
+			"label": "Countertop CT0133",
+			"category": "countertop",
+			"type": "texture",
+			"value": "textures/countertop/ct0133tn.jpg",
+			"order": 12
+		},
+		{
+			"id": "countertop-texture-ct0149",
+			"label": "Countertop CT0149",
+			"category": "countertop",
+			"type": "texture",
+			"value": "textures/countertop/ct0149tn.jpg",
+			"order": 13
+		},
+		{
+			"id": "countertop-texture-ct0160",
+			"label": "Countertop CT0160",
+			"category": "countertop",
+			"type": "texture",
+			"value": "textures/countertop/ct0160tn.jpg",
+			"order": 14
+		},
+		{
+			"id": "countertop-texture-ct0186",
+			"label": "Countertop CT0186",
+			"category": "countertop",
+			"type": "texture",
+			"value": "textures/countertop/ct0186tn.jpg",
+			"order": 15
+		},
+		{
+			"id": "countertop-texture-ct0309",
+			"label": "Countertop CT0309",
+			"category": "countertop",
+			"type": "texture",
+			"value": "textures/countertop/ct0309tn.jpg",
+			"order": 16
+		},
+		{
+			"id": "countertop-texture-ct0310",
+			"label": "Countertop CT0310",
+			"category": "countertop",
+			"type": "texture",
+			"value": "textures/countertop/ct0310tn.jpg",
+			"order": 17
+		},
+		{
+			"id": "countertop-texture-ct0315",
+			"label": "Countertop CT0315",
+			"category": "countertop",
+			"type": "texture",
+			"value": "textures/countertop/ct0315tn.jpg",
+			"order": 18
+		},
+		{
+			"id": "countertop-texture-ct0348",
+			"label": "Countertop CT0348",
+			"category": "countertop",
+			"type": "texture",
+			"value": "textures/countertop/ct0348tn.jpg",
+			"order": 19
+		},
+		{
 			"id": "backsplash-subway-white",
 			"label": "White Subway",
 			"category": "backsplash",
@@ -127,6 +223,54 @@
 			"type": "color",
 			"value": "#e8ddd0",
 			"order": 7
+		},
+		{
+			"id": "backsplash-texture-bs0263",
+			"label": "Backsplash BS0263",
+			"category": "backsplash",
+			"type": "texture",
+			"value": "textures/backsplash/bs0263tn.jpg",
+			"order": 8
+		},
+		{
+			"id": "backsplash-texture-bs0354",
+			"label": "Backsplash BS0354",
+			"category": "backsplash",
+			"type": "texture",
+			"value": "textures/backsplash/bs0354tn.jpg",
+			"order": 9
+		},
+		{
+			"id": "backsplash-texture-bs0360",
+			"label": "Backsplash BS0360",
+			"category": "backsplash",
+			"type": "texture",
+			"value": "textures/backsplash/bs0360tn.jpg",
+			"order": 10
+		},
+		{
+			"id": "backsplash-texture-bs0361",
+			"label": "Backsplash BS0361",
+			"category": "backsplash",
+			"type": "texture",
+			"value": "textures/backsplash/bs0361tn.jpg",
+			"order": 11
+		},
+		{
+			"id": "backsplash-texture-bs0415",
+			"label": "Backsplash BS0415",
+			"category": "backsplash",
+			"type": "texture",
+			"value": "textures/backsplash/bs0415tn.jpg",
+			"order": 12
+		},
+		{
+			"id": "backsplash-texture-bs0473",
+			"label": "Backsplash BS0473",
+			"category": "backsplash",
+			"type": "texture",
+			"value": "textures/backsplash/bs0473tn.jpg",
+			"order": 13
 		},
 		{
 			"id": "cabinet-white",
@@ -193,6 +337,70 @@
 			"order": 7
 		},
 		{
+			"id": "cabinet-texture-benchmark-oak",
+			"label": "Benchmark Oak Planks",
+			"category": "cabinet",
+			"type": "texture",
+			"value": "textures/cabinets/benchmark-oak-3060-planks-1337-mm-architextures.jpg",
+			"order": 8
+		},
+		{
+			"id": "cabinet-texture-douglas-fir",
+			"label": "Douglas Fir Staggered",
+			"category": "cabinet",
+			"type": "texture",
+			"value": "textures/cabinets/douglas-fir-staggered-1800-mm-architextures.jpg",
+			"order": 9
+		},
+		{
+			"id": "cabinet-texture-oak",
+			"label": "Oak",
+			"category": "cabinet",
+			"type": "texture",
+			"value": "textures/cabinets/oak-3275-mm-architextures.jpg",
+			"order": 10
+		},
+		{
+			"id": "cabinet-texture-oak-herringbone",
+			"label": "Oak Herringbone",
+			"category": "cabinet",
+			"type": "texture",
+			"value": "textures/cabinets/oak-herringbone-4630-mm-architextures.jpg",
+			"order": 11
+		},
+		{
+			"id": "cabinet-texture-oak-veneered",
+			"label": "Oak Veneered MDF",
+			"category": "cabinet",
+			"type": "texture",
+			"value": "textures/cabinets/oak-veneered-mdf-550-mm-architextures.jpg",
+			"order": 12
+		},
+		{
+			"id": "cabinet-texture-olive-wood",
+			"label": "Olive Wood Rosette",
+			"category": "cabinet",
+			"type": "texture",
+			"value": "textures/cabinets/olive-wood-rosette-353-mm-architextures.jpg",
+			"order": 13
+		},
+		{
+			"id": "cabinet-texture-osb",
+			"label": "Oriented Strand Board",
+			"category": "cabinet",
+			"type": "texture",
+			"value": "textures/cabinets/oriented-strand-board-osb-600-mm-architextures.jpg",
+			"order": 14
+		},
+		{
+			"id": "cabinet-texture-osb-alt",
+			"label": "OSB",
+			"category": "cabinet",
+			"type": "texture",
+			"value": "textures/cabinets/osb-1499-mm-architextures.jpg",
+			"order": 15
+		},
+		{
 			"id": "floor-oak",
 			"label": "Honey Oak",
 			"category": "floor",
@@ -255,6 +463,118 @@
 			"type": "color",
 			"value": "#a87a5a",
 			"order": 7
+		},
+		{
+			"id": "floor-texture-fl0083",
+			"label": "Floor FL0083",
+			"category": "floor",
+			"type": "texture",
+			"value": "textures/floor/fl0083tn.jpg",
+			"order": 8
+		},
+		{
+			"id": "floor-texture-fl0089",
+			"label": "Floor FL0089",
+			"category": "floor",
+			"type": "texture",
+			"value": "textures/floor/fl0089tn.jpg",
+			"order": 9
+		},
+		{
+			"id": "floor-texture-fl0090",
+			"label": "Floor FL0090",
+			"category": "floor",
+			"type": "texture",
+			"value": "textures/floor/fl0090tn.jpg",
+			"order": 10
+		},
+		{
+			"id": "floor-texture-fl0091",
+			"label": "Floor FL0091",
+			"category": "floor",
+			"type": "texture",
+			"value": "textures/floor/fl0091tn.jpg",
+			"order": 11
+		},
+		{
+			"id": "floor-texture-fl0104",
+			"label": "Floor FL0104",
+			"category": "floor",
+			"type": "texture",
+			"value": "textures/floor/fl0104tn.jpg",
+			"order": 12
+		},
+		{
+			"id": "floor-texture-fl0105",
+			"label": "Floor FL0105",
+			"category": "floor",
+			"type": "texture",
+			"value": "textures/floor/fl0105tn.jpg",
+			"order": 13
+		},
+		{
+			"id": "floor-texture-fl0106",
+			"label": "Floor FL0106",
+			"category": "floor",
+			"type": "texture",
+			"value": "textures/floor/fl0106tn.jpg",
+			"order": 14
+		},
+		{
+			"id": "floor-texture-fl0163",
+			"label": "Floor FL0163",
+			"category": "floor",
+			"type": "texture",
+			"value": "textures/floor/fl0163tn.jpg",
+			"order": 15
+		},
+		{
+			"id": "floor-texture-fl0169",
+			"label": "Floor FL0169",
+			"category": "floor",
+			"type": "texture",
+			"value": "textures/floor/fl0169tn.jpg",
+			"order": 16
+		},
+		{
+			"id": "floor-texture-fl0170",
+			"label": "Floor FL0170",
+			"category": "floor",
+			"type": "texture",
+			"value": "textures/floor/fl0170tn.jpg",
+			"order": 17
+		},
+		{
+			"id": "floor-texture-fl0172",
+			"label": "Floor FL0172",
+			"category": "floor",
+			"type": "texture",
+			"value": "textures/floor/fl0172tn.jpg",
+			"order": 18
+		},
+		{
+			"id": "floor-texture-fl0178",
+			"label": "Floor FL0178",
+			"category": "floor",
+			"type": "texture",
+			"value": "textures/floor/fl0178tn.jpg",
+			"order": 19
+		},
+		{
+			"id": "floor-texture-fl0181",
+			"label": "Floor FL0181",
+			"category": "floor",
+			"type": "texture",
+			"value": "textures/floor/fl0181tn.jpg",
+			"order": 20
+		},
+		{
+			"id": "floor-texture-fl0182",
+			"label": "Floor FL0182",
+			"category": "floor",
+			"type": "texture",
+			"value": "textures/floor/fl0182tn.jpg",
+			"order": 21
 		},
 		{
 			"id": "background-white",

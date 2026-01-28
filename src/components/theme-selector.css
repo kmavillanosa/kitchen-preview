@@ -94,6 +94,11 @@
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
 	transition: all 0.2s ease;
 	position: relative;
+	overflow: hidden;
+}
+
+.theme-selector__swatch--texture {
+	background: #f3f4f6;
 }
 
 .theme-selector__swatch::after {
@@ -170,5 +175,14 @@
 	.theme-selector__checkmark {
 		position: static;
 		margin-left: auto;
+	}
+}
+
+@keyframes pulse {
+	0%, 100% {
+		opacity: 0.4;
+	}
+	50% {
+		opacity: 1;
 	}
 }

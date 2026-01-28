@@ -1,5 +1,6 @@
-import { KeyboardEvent } from 'react'
+import { KeyboardEvent, useState } from 'react'
 import type { Theme, TextureOption } from '../types'
+import { getAssetUrl } from '../lib/content'
 import './theme-selector.css'
 
 interface ThemeSelectorProps {
@@ -25,14 +26,26 @@ export function ThemeSelector({
 		}
 	}
 
-	const getThemeColors = (theme: Theme) => {
-		return {
-			countertop: textures.get(theme.countertop)?.value || '#ccc',
-			backsplash: textures.get(theme.backsplash)?.value || '#ccc',
-			cabinet: textures.get(theme.cabinet)?.value || '#ccc',
-			floor: textures.get(theme.floor)?.value || '#ccc',
-			background: textures.get(theme.background)?.value || '#ccc',
+	const getThemeTextures = (theme: Theme) => {
+		const result = {
+			countertop: textures.get(theme.countertop),
+			backsplash: textures.get(theme.backsplash),
+			cabinet: textures.get(theme.cabinet),
+			floor: textures.get(theme.floor),
+			background: textures.get(theme.background),
 		}
+		
+		// Debug logging for texture-based themes
+		if (theme.id.startsWith('texture-')) {
+			console.log(`[ThemeSelector] Theme ${theme.id}:`, {
+				countertop: result.countertop ? { id: result.countertop.id, type: result.countertop.type } : null,
+				backsplash: result.backsplash ? { id: result.backsplash.id, type: result.backsplash.type } : null,
+				cabinet: result.cabinet ? { id: result.cabinet.id, type: result.cabinet.type } : null,
+				floor: result.floor ? { id: result.floor.id, type: result.floor.type } : null,
+			})
+		}
+		
+		return result
 	}
 
 	return (
@@ -43,7 +56,7 @@ export function ThemeSelector({
 			<div className="theme-selector__grid" role="listbox" aria-label="Themes">
 				{themes.map((theme) => {
 					const isSelected = theme.id === selectedThemeId
-					const colors = getThemeColors(theme)
+					const themeTextures = getThemeTextures(theme)
 					return (
 						<button
 							key={theme.id}
@@ -63,36 +76,31 @@ export function ThemeSelector({
 										{theme.description}
 									</span>
 								)}
-								<div className="theme-selector__palette" aria-label="Color palette">
-									<div
-										className="theme-selector__swatch"
-										style={{ backgroundColor: colors.countertop }}
+								<div className="theme-selector__palette" aria-label="Texture palette">
+									<ThemeSwatch
+										texture={themeTextures.countertop}
 										title="Countertop"
-										aria-label="Countertop color"
+										ariaLabel="Countertop"
 									/>
-									<div
-										className="theme-selector__swatch"
-										style={{ backgroundColor: colors.backsplash }}
+									<ThemeSwatch
+										texture={themeTextures.backsplash}
 										title="Backsplash"
-										aria-label="Backsplash color"
+										ariaLabel="Backsplash"
 									/>
-									<div
-										className="theme-selector__swatch"
-										style={{ backgroundColor: colors.cabinet }}
+									<ThemeSwatch
+										texture={themeTextures.cabinet}
 										title="Cabinet"
-										aria-label="Cabinet color"
+										ariaLabel="Cabinet"
 									/>
-									<div
-										className="theme-selector__swatch"
-										style={{ backgroundColor: colors.floor }}
+									<ThemeSwatch
+										texture={themeTextures.floor}
 										title="Floor"
-										aria-label="Floor color"
+										ariaLabel="Floor"
 									/>
-									<div
-										className="theme-selector__swatch"
-										style={{ backgroundColor: colors.background }}
+									<ThemeSwatch
+										texture={themeTextures.background}
 										title="Background"
-										aria-label="Background color"
+										ariaLabel="Background"
 									/>
 								</div>
 							</div>
@@ -113,6 +121,114 @@ export function ThemeSelector({
 					)
 				})}
 			</div>
+		</div>
+	)
+}
+
+function ThemeSwatch({
+	texture,
+	title,
+	ariaLabel,
+}: {
+	texture: TextureOption | undefined
+	title: string
+	ariaLabel: string
+}) {
+	const [imageError, setImageError] = useState(false)
+	const [imageLoaded, setImageLoaded] = useState(false)
+
+	if (!texture) {
+		return (
+			<div
+				className="theme-selector__swatch"
+				style={{ backgroundColor: '#ccc' }}
+				title={title}
+				aria-label={ariaLabel}
+			/>
+		)
+	}
+
+	if (texture.type === 'color') {
+		return (
+			<div
+				className="theme-selector__swatch"
+				style={{ backgroundColor: texture.value }}
+				title={title}
+				aria-label={ariaLabel}
+			/>
+		)
+	}
+
+	// Texture image
+	const imageUrl = getAssetUrl(texture.value)
+
+	return (
+		<div
+			className="theme-selector__swatch theme-selector__swatch--texture"
+			title={title}
+			aria-label={ariaLabel}
+		>
+			{imageError ? (
+				<div
+					style={{
+						width: '100%',
+						height: '100%',
+						backgroundColor: '#e5e7eb',
+						borderRadius: '0.375rem',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+					}}
+				>
+					<svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<rect width="16" height="16" fill="#9ca3af" />
+						<path d="M6 6L10 10M10 6L6 10" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+					</svg>
+				</div>
+			) : (
+				<>
+					{!imageLoaded && (
+						<div
+							style={{
+								position: 'absolute',
+								inset: 0,
+								backgroundColor: '#f3f4f6',
+								borderRadius: '0.375rem',
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+							}}
+						>
+							<div
+								style={{
+									width: '8px',
+									height: '8px',
+									backgroundColor: '#d1d5db',
+									borderRadius: '50%',
+									animation: 'pulse 1.5s ease-in-out infinite',
+								}}
+							/>
+						</div>
+					)}
+					<img
+						src={imageUrl}
+						alt=""
+						loading="lazy"
+						onLoad={() => setImageLoaded(true)}
+						onError={() => {
+							setImageError(true)
+							setImageLoaded(true)
+						}}
+						style={{
+							width: '100%',
+							height: '100%',
+							objectFit: 'cover',
+							borderRadius: '0.375rem',
+							display: imageLoaded ? 'block' : 'none',
+						}}
+					/>
+				</>
+			)}
 		</div>
 	)
 }
