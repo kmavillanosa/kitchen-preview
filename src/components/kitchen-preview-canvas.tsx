@@ -124,10 +124,31 @@ export function KitchenPreviewCanvas({
 		await updateSurface(svg, ['background-surface'], selections.background)
 		// Update each surface - apply backsplash first, then cabinets on top
 		await updateSurface(svg, ['floor-surface', 'floor-surface-main'], selections.floor)
-		// Countertop on the three circled areas: left cabinet, main countertop, right cabinet
+		// Countertop - all elements with #8d8975 color
+		// Exclude fridge-door-surface and fridge-door-surface-2 (they're not countertops)
+		// Exclude countertop-surface-3 (it's actually a cabinet door)
 		await updateSurface(
 			svg,
-			['countertop-surface-2', 'countertop-surface', 'countertop-surface-3'],
+			[
+				'countertop-surface-4',
+				'countertop-surface-5',
+				'countertop-surface-6',
+				'countertop-surface-7',
+				'countertop-surface-8',
+				'countertop-surface-9',
+				'countertop-surface-10',
+				'countertop-surface-11',
+				'countertop-surface-12',
+				'countertop-surface-13',
+				'countertop-surface-14',
+				'countertop-surface-15',
+				'countertop-surface-16',
+				'countertop-surface-17',
+				'countertop-surface-18',
+				'countertop-surface-19',
+				'countertop-surface-20',
+				'countertop-surface-21',
+			],
 			selections.countertop,
 		)
 		// Apply backsplash to wall areas only (between upper cabinets and countertop)
@@ -143,6 +164,7 @@ export function KitchenPreviewCanvas({
 		)
 		// Apply cabinets last (foreground layer) so they appear on top
 		// Apply to both upper and lower cabinets together
+		// All elements with #fff9d3 and #c9c5a7 colors
 		await updateSurface(
 			svg,
 			[
@@ -157,6 +179,8 @@ export function KitchenPreviewCanvas({
 				'cabinet-surface-upper-8',
 				'cabinet-surface-upper-9',
 				'cabinet-surface-upper-10',
+				'cabinet-surface-upper-11',
+				'cabinet-surface-upper-12',
 				// Bottom/base cabinets
 				'cabinet-surface-1',
 				'cabinet-surface-2',
@@ -171,6 +195,21 @@ export function KitchenPreviewCanvas({
 				'cabinet-surface-11',
 				'cabinet-surface-12',
 				'cabinet-surface-13',
+				'cabinet-surface-14',
+				'cabinet-surface-15',
+				'cabinet-surface-16',
+				'cabinet-surface-17',
+				'cabinet-surface-18',
+				'cabinet-surface-19',
+				'cabinet-surface-20',
+				'cabinet-surface-21',
+				'cabinet-surface-22',
+				'cabinet-surface-23',
+				'cabinet-surface-24',
+				'cabinet-surface-25',
+				'cabinet-surface-26',
+				'cabinet-surface-27',
+				'cabinet-surface-28',
 			],
 			selections.cabinet,
 		)
@@ -190,12 +229,24 @@ export function KitchenPreviewCanvas({
 				const importedSvg = svgDoc.documentElement
 
 				// Get original dimensions and viewBox
-				const viewBox = importedSvg.getAttribute('viewBox') || importedSvg.getAttribute('width') && importedSvg.getAttribute('height') 
+				const originalViewBox = importedSvg.getAttribute('viewBox') || (importedSvg.getAttribute('width') && importedSvg.getAttribute('height') 
 					? `0 0 ${importedSvg.getAttribute('width')} ${importedSvg.getAttribute('height')}`
-					: '0 0 1359 877'
-
-				// Set viewBox and preserve aspect ratio for responsive scaling
-				svg.setAttribute('viewBox', viewBox)
+					: '0 0 1359 877')
+				
+				// Parse viewBox to zoom out (add padding around the content)
+				const viewBoxMatch = originalViewBox.match(/([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/)
+				if (viewBoxMatch) {
+					const [, x, y, width, height] = viewBoxMatch.map(Number)
+					// Add 15% padding on all sides to zoom out
+					const paddingX = width * 0.15
+					const paddingY = height * 0.15
+					const newViewBox = `${x - paddingX} ${y - paddingY} ${width + paddingX * 2} ${height + paddingY * 2}`
+					svg.setAttribute('viewBox', newViewBox)
+				} else {
+					svg.setAttribute('viewBox', originalViewBox)
+				}
+				
+				// Set preserve aspect ratio for responsive scaling
 				svg.setAttribute('preserveAspectRatio', 'xMidYMid meet')
 				svg.removeAttribute('width')
 				svg.removeAttribute('height')

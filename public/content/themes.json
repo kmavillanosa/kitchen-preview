@@ -35,9 +35,9 @@
 		},
 		{
 			"id": "coastal",
-			"name": "Coastal",
+			"name": "Coastal Breeze",
 			"description": "Bright and airy coastal style",
-			"countertop": "countertop-quartz-white",
+			"countertop": "countertop-carrara",
 			"backsplash": "backsplash-mosaic-blue",
 			"cabinet": "cabinet-white",
 			"floor": "floor-oak",
@@ -60,10 +60,10 @@
 			"name": "Warm Traditional",
 			"description": "Cozy traditional kitchen",
 			"countertop": "countertop-marble-white",
-			"backsplash": "backsplash-herringbone",
+			"backsplash": "backsplash-cream",
 			"cabinet": "cabinet-cream",
 			"floor": "floor-light-wood",
-			"background": "background-cream",
+			"background": "background-almond",
 			"order": 5
 		},
 		{
@@ -84,9 +84,53 @@
 			"countertop": "countertop-marble-white",
 			"backsplash": "backsplash-stone",
 			"cabinet": "cabinet-walnut-wood",
-			"floor": "floor-dark-wood",
+			"floor": "floor-walnut",
 			"background": "background-beige",
 			"order": 7
+		},
+		{
+			"id": "sage-modern",
+			"name": "Sage Modern",
+			"description": "Fresh and calming sage green",
+			"countertop": "countertop-carrara",
+			"backsplash": "backsplash-sage",
+			"cabinet": "cabinet-sage",
+			"floor": "floor-bamboo",
+			"background": "background-sage",
+			"order": 8
+		},
+		{
+			"id": "minimal-black",
+			"name": "Minimal Black",
+			"description": "Bold black and white contrast",
+			"countertop": "countertop-onyx",
+			"backsplash": "backsplash-subway-white",
+			"cabinet": "cabinet-black",
+			"floor": "floor-tile-gray",
+			"background": "background-white",
+			"order": 9
+		},
+		{
+			"id": "mediterranean",
+			"name": "Mediterranean",
+			"description": "Warm terracotta and cream",
+			"countertop": "countertop-marble-white",
+			"backsplash": "backsplash-brick",
+			"cabinet": "cabinet-cream",
+			"floor": "floor-terracotta",
+			"background": "background-yellow",
+			"order": 10
+		},
+		{
+			"id": "scandinavian",
+			"name": "Scandinavian",
+			"description": "Light and airy Nordic style",
+			"countertop": "countertop-quartz-white",
+			"backsplash": "backsplash-subway-white",
+			"cabinet": "cabinet-white",
+			"floor": "floor-light-wood",
+			"background": "background-cream",
+			"order": 11
 		}
 	]
 }

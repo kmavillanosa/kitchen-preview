@@ -169,7 +169,7 @@ function App() {
 									/>
 								</circle>
 							</svg>
-							Exporting...
+							<span>Exporting...</span>
 						</>
 					) : (
 						<>
@@ -201,7 +201,7 @@ function App() {
 									strokeLinejoin="round"
 								/>
 							</svg>
-							Export PDF
+							<span>Export PDF</span>
 						</>
 					)}
 				</button>
@@ -211,13 +211,23 @@ function App() {
 			</div>
 		</header>
 		<main className="app__main">
-			<aside className="app__sidebar">
+			<div className="app__themes-section">
 				<ThemeSelector
 					themes={themes}
 					selectedThemeId={selectedThemeId}
 					onSelect={handleThemeSelect}
+					textures={textureMap}
 				/>
-				<TextureSelector
+			</div>
+			<div className="app__main-content">
+				<aside className="app__sidebar">
+					<div className="app__sidebar-header">
+						<h2 className="app__sidebar-title">Customize Colors</h2>
+						<p className="app__sidebar-subtitle">
+							Select individual colors for each element
+						</p>
+					</div>
+					<TextureSelector
 						title="Countertop"
 						options={getTexturesByCategory('countertop')}
 						selectedId={selections.countertop}
@@ -257,7 +267,8 @@ function App() {
 						}}
 					/>
 				</section>
-			</main>
+			</div>
+		</main>
 		</div>
 	)
 }

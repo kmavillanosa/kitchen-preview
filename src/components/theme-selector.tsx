@@ -1,17 +1,19 @@
 import { KeyboardEvent } from 'react'
-import type { Theme } from '../types'
+import type { Theme, TextureOption } from '../types'
 import './theme-selector.css'
 
 interface ThemeSelectorProps {
 	themes: Theme[]
 	selectedThemeId: string | null
 	onSelect: (theme: Theme) => void
+	textures: Map<string, TextureOption>
 }
 
 export function ThemeSelector({
 	themes,
 	selectedThemeId,
 	onSelect,
+	textures,
 }: ThemeSelectorProps) {
 	const handleKeyDown = (
 		e: KeyboardEvent<HTMLButtonElement>,
@@ -20,6 +22,16 @@ export function ThemeSelector({
 		if (e.key === 'Enter' || e.key === ' ') {
 			e.preventDefault()
 			onSelect(theme)
+		}
+	}
+
+	const getThemeColors = (theme: Theme) => {
+		return {
+			countertop: textures.get(theme.countertop)?.value || '#ccc',
+			backsplash: textures.get(theme.backsplash)?.value || '#ccc',
+			cabinet: textures.get(theme.cabinet)?.value || '#ccc',
+			floor: textures.get(theme.floor)?.value || '#ccc',
+			background: textures.get(theme.background)?.value || '#ccc',
 		}
 	}
 
@@ -32,6 +44,7 @@ export function ThemeSelector({
 			<div className="theme-selector__grid" role="listbox" aria-label="Themes">
 				{themes.map((theme) => {
 					const isSelected = theme.id === selectedThemeId
+					const colors = getThemeColors(theme)
 					return (
 						<button
 							key={theme.id}
@@ -51,6 +64,38 @@ export function ThemeSelector({
 										{theme.description}
 									</span>
 								)}
+								<div className="theme-selector__palette" aria-label="Color palette">
+									<div
+										className="theme-selector__swatch"
+										style={{ backgroundColor: colors.countertop }}
+										title="Countertop"
+										aria-label="Countertop color"
+									/>
+									<div
+										className="theme-selector__swatch"
+										style={{ backgroundColor: colors.backsplash }}
+										title="Backsplash"
+										aria-label="Backsplash color"
+									/>
+									<div
+										className="theme-selector__swatch"
+										style={{ backgroundColor: colors.cabinet }}
+										title="Cabinet"
+										aria-label="Cabinet color"
+									/>
+									<div
+										className="theme-selector__swatch"
+										style={{ backgroundColor: colors.floor }}
+										title="Floor"
+										aria-label="Floor color"
+									/>
+									<div
+										className="theme-selector__swatch"
+										style={{ backgroundColor: colors.background }}
+										title="Background"
+										aria-label="Background color"
+									/>
+								</div>
 							</div>
 							{isSelected && (
 								<span className="theme-selector__checkmark" aria-hidden>

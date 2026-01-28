@@ -5,15 +5,15 @@
 			"label": "White Marble",
 			"category": "countertop",
 			"type": "color",
-			"value": "#f5f5f0",
+			"value": "#f8f6f2",
 			"order": 0
 		},
 		{
 			"id": "countertop-granite-dark",
-			"label": "Dark Gray Granite",
+			"label": "Dark Granite",
 			"category": "countertop",
 			"type": "color",
-			"value": "#4a4a4a",
+			"value": "#3d3d3d",
 			"order": 1
 		},
 		{
@@ -21,7 +21,7 @@
 			"label": "White Quartz",
 			"category": "countertop",
 			"type": "color",
-			"value": "#ffffff",
+			"value": "#fafafa",
 			"order": 2
 		},
 		{
@@ -29,7 +29,7 @@
 			"label": "Butcher Block",
 			"category": "countertop",
 			"type": "color",
-			"value": "#8b6914",
+			"value": "#a67c52",
 			"order": 3
 		},
 		{
@@ -37,7 +37,7 @@
 			"label": "Concrete",
 			"category": "countertop",
 			"type": "color",
-			"value": "#6b6b6b",
+			"value": "#7a7a7a",
 			"order": 4
 		},
 		{
@@ -45,39 +45,55 @@
 			"label": "Gray Quartz",
 			"category": "countertop",
 			"type": "color",
-			"value": "#9e9e9e",
+			"value": "#b8b8b8",
 			"order": 5
+		},
+		{
+			"id": "countertop-carrara",
+			"label": "Carrara Marble",
+			"category": "countertop",
+			"type": "color",
+			"value": "#e8e6e1",
+			"order": 6
+		},
+		{
+			"id": "countertop-onyx",
+			"label": "Black Onyx",
+			"category": "countertop",
+			"type": "color",
+			"value": "#2a2a2a",
+			"order": 7
 		},
 		{
 			"id": "backsplash-subway-white",
 			"label": "White Subway",
 			"category": "backsplash",
 			"type": "color",
-			"value": "#f5f5f0",
+			"value": "#f5f3ef",
 			"order": 0
 		},
 		{
 			"id": "backsplash-mosaic-blue",
-			"label": "Blue Tile",
+			"label": "Sage Blue",
 			"category": "backsplash",
 			"type": "color",
-			"value": "#4a6fa5",
+			"value": "#7a9ba8",
 			"order": 1
 		},
 		{
 			"id": "backsplash-herringbone",
-			"label": "Beige Herringbone",
+			"label": "Warm Beige",
 			"category": "backsplash",
 			"type": "color",
-			"value": "#d4c4a8",
+			"value": "#d9c9b0",
 			"order": 2
 		},
 		{
 			"id": "backsplash-brick",
-			"label": "Brick Red",
+			"label": "Terracotta",
 			"category": "backsplash",
 			"type": "color",
-			"value": "#c97d60",
+			"value": "#c88d6f",
 			"order": 3
 		},
 		{
@@ -85,7 +101,7 @@
 			"label": "Natural Stone",
 			"category": "backsplash",
 			"type": "color",
-			"value": "#9a9a8a",
+			"value": "#a8a89a",
 			"order": 4
 		},
 		{
@@ -93,23 +109,39 @@
 			"label": "Gray Subway",
 			"category": "backsplash",
 			"type": "color",
-			"value": "#9e9e9e",
+			"value": "#b5b5b5",
 			"order": 5
 		},
 		{
+			"id": "backsplash-sage",
+			"label": "Sage Green",
+			"category": "backsplash",
+			"type": "color",
+			"value": "#9db5a8",
+			"order": 6
+		},
+		{
+			"id": "backsplash-cream",
+			"label": "Cream Tile",
+			"category": "backsplash",
+			"type": "color",
+			"value": "#e8ddd0",
+			"order": 7
+		},
+		{
 			"id": "cabinet-white",
-			"label": "White",
+			"label": "Pure White",
 			"category": "cabinet",
 			"type": "color",
-			"value": "#fafafa",
+			"value": "#fefefe",
 			"order": 0
 		},
 		{
 			"id": "cabinet-gray",
-			"label": "Gray",
+			"label": "Charcoal Gray",
 			"category": "cabinet",
 			"type": "color",
-			"value": "#5c5c5c",
+			"value": "#4a4a4a",
 			"order": 1
 		},
 		{
@@ -117,44 +149,60 @@
 			"label": "Navy Blue",
 			"category": "cabinet",
 			"type": "color",
-			"value": "#2c3e50",
+			"value": "#2d3e4f",
 			"order": 2
 		},
 		{
 			"id": "cabinet-walnut-wood",
-			"label": "Walnut",
+			"label": "Rich Walnut",
 			"category": "cabinet",
 			"type": "color",
-			"value": "#4a3728",
+			"value": "#5a4230",
 			"order": 3
 		},
 		{
 			"id": "cabinet-oak-wood",
-			"label": "Oak",
+			"label": "Golden Oak",
 			"category": "cabinet",
 			"type": "color",
-			"value": "#c4a35a",
+			"value": "#d4b87a",
 			"order": 4
 		},
 		{
 			"id": "cabinet-cream",
-			"label": "Cream",
+			"label": "Warm Cream",
 			"category": "cabinet",
 			"type": "color",
-			"value": "#f5e6d3",
+			"value": "#f0e6d6",
 			"order": 5
 		},
 		{
+			"id": "cabinet-sage",
+			"label": "Sage Green",
+			"category": "cabinet",
+			"type": "color",
+			"value": "#8fa896",
+			"order": 6
+		},
+		{
+			"id": "cabinet-black",
+			"label": "Matte Black",
+			"category": "cabinet",
+			"type": "color",
+			"value": "#2a2a2a",
+			"order": 7
+		},
+		{
 			"id": "floor-oak",
-			"label": "Oak",
+			"label": "Honey Oak",
 			"category": "floor",
 			"type": "color",
-			"value": "#8b6f3d",
+			"value": "#9d7a4a",
 			"order": 0
 		},
 		{
 			"id": "floor-tile-gray",
-			"label": "Gray Tile",
+			"label": "Slate Gray",
 			"category": "floor",
 			"type": "color",
 			"value": "#5a5a5a",
@@ -162,18 +210,18 @@
 		},
 		{
 			"id": "floor-dark-wood",
-			"label": "Dark Wood",
+			"label": "Espresso",
 			"category": "floor",
 			"type": "color",
-			"value": "#2a1a0d",
+			"value": "#3a2a1a",
 			"order": 2
 		},
 		{
 			"id": "floor-light-wood",
-			"label": "Medium Wood",
+			"label": "Natural Oak",
 			"category": "floor",
 			"type": "color",
-			"value": "#9d7a4a",
+			"value": "#b89a6d",
 			"order": 3
 		},
 		{
@@ -181,7 +229,7 @@
 			"label": "Natural Stone",
 			"category": "floor",
 			"type": "color",
-			"value": "#5a5a52",
+			"value": "#6a6a62",
 			"order": 4
 		},
 		{
@@ -189,12 +237,28 @@
 			"label": "Bamboo",
 			"category": "floor",
 			"type": "color",
-			"value": "#9d8a6b",
+			"value": "#c4a87a",
 			"order": 5
 		},
 		{
+			"id": "floor-walnut",
+			"label": "Walnut",
+			"category": "floor",
+			"type": "color",
+			"value": "#6a4a2a",
+			"order": 6
+		},
+		{
+			"id": "floor-terracotta",
+			"label": "Terracotta",
+			"category": "floor",
+			"type": "color",
+			"value": "#a87a5a",
+			"order": 7
+		},
+		{
 			"id": "background-white",
-			"label": "White",
+			"label": "Pure White",
 			"category": "background",
 			"type": "color",
 			"value": "#ffffff",
@@ -202,43 +266,59 @@
 		},
 		{
 			"id": "background-light-gray",
-			"label": "Light Gray",
+			"label": "Soft Gray",
 			"category": "background",
 			"type": "color",
-			"value": "#f0f0f0",
+			"value": "#f5f5f5",
 			"order": 1
 		},
 		{
 			"id": "background-yellow",
-			"label": "Light Yellow",
+			"label": "Warm Cream",
 			"category": "background",
 			"type": "color",
-			"value": "#fff5ad",
+			"value": "#faf8f0",
 			"order": 2
 		},
 		{
 			"id": "background-cream",
-			"label": "Cream",
+			"label": "Ivory",
 			"category": "background",
 			"type": "color",
-			"value": "#faf8f3",
+			"value": "#faf9f5",
 			"order": 3
 		},
 		{
 			"id": "background-blue",
-			"label": "Light Blue",
+			"label": "Sky Blue",
 			"category": "background",
 			"type": "color",
-			"value": "#e8f4f8",
+			"value": "#f0f5f8",
 			"order": 4
 		},
 		{
 			"id": "background-beige",
-			"label": "Beige",
+			"label": "Warm Beige",
 			"category": "background",
 			"type": "color",
-			"value": "#f5f5dc",
+			"value": "#f5f3ef",
 			"order": 5
+		},
+		{
+			"id": "background-sage",
+			"label": "Sage Mist",
+			"category": "background",
+			"type": "color",
+			"value": "#f2f5f3",
+			"order": 6
+		},
+		{
+			"id": "background-almond",
+			"label": "Almond",
+			"category": "background",
+			"type": "color",
+			"value": "#faf7f2",
+			"order": 7
 		}
 	]
 }
