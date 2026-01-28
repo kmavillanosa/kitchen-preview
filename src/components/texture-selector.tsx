@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, KeyboardEvent } from 'react'
 import type { TextureOption } from '../types'
 import { getAssetUrl } from '../lib/content'
 import './texture-selector.css'
@@ -16,21 +16,32 @@ export function TextureSelector({
 	selectedId,
 	onSelect,
 }: TextureSelectorProps) {
+	const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>, id: string) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault()
+			onSelect(id)
+		}
+	}
+
 	return (
 		<div className="texture-selector">
 			<h3 className="texture-selector__title">{title}</h3>
-			<ul className="texture-selector__list" role="listbox" aria-label={title}>
+			<div className="texture-selector__grid" role="listbox" aria-label={title}>
 				{options.map((opt) => {
 					const isSelected = opt.id === selectedId
 					return (
-						<li key={opt.id} className="texture-selector__item">
-							<button
-								type="button"
-								role="option"
-								aria-selected={isSelected}
-								className={`texture-selector__option ${isSelected ? 'texture-selector__option--selected' : ''}`}
-								onClick={() => onSelect(opt.id)}
-							>
+						<button
+							key={opt.id}
+							type="button"
+							role="option"
+							aria-selected={isSelected}
+							aria-label={`Select ${opt.label}`}
+							className={`texture-selector__option ${isSelected ? 'texture-selector__option--selected' : ''}`}
+							onClick={() => onSelect(opt.id)}
+							onKeyDown={(e) => handleKeyDown(e, opt.id)}
+							title={opt.label}
+						>
+							<div className="texture-selector__preview">
 								{opt.type === 'color' ? (
 									<span
 										className="texture-selector__swatch"
@@ -40,12 +51,25 @@ export function TextureSelector({
 								) : (
 									<TextureImage src={getAssetUrl(opt.value)} alt={opt.label} />
 								)}
-								<span className="texture-selector__label">{opt.label}</span>
-							</button>
-						</li>
+								{isSelected && (
+									<span className="texture-selector__checkmark" aria-hidden>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M13.5 4L6 11.5L2.5 8"
+												stroke="currentColor"
+												strokeWidth="2"
+												strokeLinecap="round"
+												strokeLinejoin="round"
+											/>
+										</svg>
+									</span>
+								)}
+							</div>
+							<span className="texture-selector__label">{opt.label}</span>
+						</button>
 					)
 				})}
-			</ul>
+			</div>
 		</div>
 	)
 }
