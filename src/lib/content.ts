@@ -1,6 +1,7 @@
-import type { Scene, TextureOption } from '../types'
+import type { Scene, TextureOption, Theme } from '../types'
 import texturesBundled from '../data/textures.json'
 import scenesBundled from '../data/scenes.json'
+import themesBundled from '../data/themes.json'
 
 const baseUrl = import.meta.env.BASE_URL
 
@@ -25,8 +26,17 @@ function normalizeScenes(data: unknown): Scene[] {
 	return []
 }
 
+function normalizeThemes(data: unknown): Theme[] {
+	if (Array.isArray(data)) return data as Theme[]
+	if (data && typeof data === 'object' && 'themes' in data) {
+		return (data as { themes: Theme[] }).themes
+	}
+	return []
+}
+
 let cachedTextures: TextureOption[] | null = null
 let cachedScenes: Scene[] | null = null
+let cachedThemes: Theme[] | null = null
 
 async function fetchJson<T>(url: string): Promise<T | null> {
 	try {
@@ -76,4 +86,24 @@ export function getScenes(): Scene[] {
 export function getDefaultScene(): Scene | undefined {
 	const scenes = getScenes()
 	return scenes.find((s) => s.isDefault) ?? scenes[0]
+}
+
+export async function loadThemes(): Promise<Theme[]> {
+	if (cachedThemes) return cachedThemes
+	const url = getAssetUrl('content/themes.json')
+	const data = await fetchJson<unknown>(url)
+	const list = data ? normalizeThemes(data) : normalizeThemes(themesBundled)
+	cachedThemes = list.sort((a, b) => a.order - b.order)
+	return cachedThemes
+}
+
+export function getThemes(): Theme[] {
+	if (cachedThemes) return cachedThemes
+	const list = normalizeThemes(themesBundled)
+	return list.sort((a, b) => a.order - b.order)
+}
+
+export function getThemeById(id: string): Theme | undefined {
+	const themes = getThemes()
+	return themes.find((t) => t.id === id)
 }

@@ -148,7 +148,7 @@
 		"label": "Oak",
 		"category": "floor",
 		"type": "color",
-		"value": "#c4a35a",
+		"value": "#8b6f3d",
 		"order": 0
 	},
 	{
@@ -156,7 +156,7 @@
 		"label": "Gray Tile",
 		"category": "floor",
 		"type": "color",
-		"value": "#9e9e9e",
+		"value": "#5a5a5a",
 		"order": 1
 	},
 	{
@@ -164,15 +164,15 @@
 		"label": "Dark Wood",
 		"category": "floor",
 		"type": "color",
-		"value": "#3d2914",
+		"value": "#2a1a0d",
 		"order": 2
 	},
 	{
 		"id": "floor-light-wood",
-		"label": "Light Wood",
+		"label": "Medium Wood",
 		"category": "floor",
 		"type": "color",
-		"value": "#e8d4a0",
+		"value": "#9d7a4a",
 		"order": 3
 	},
 	{
@@ -180,7 +180,7 @@
 		"label": "Natural Stone",
 		"category": "floor",
 		"type": "color",
-		"value": "#8a8a7a",
+		"value": "#5a5a52",
 		"order": 4
 	},
 	{
@@ -188,7 +188,55 @@
 		"label": "Bamboo",
 		"category": "floor",
 		"type": "color",
-		"value": "#d4c4a8",
+		"value": "#9d8a6b",
+		"order": 5
+	},
+	{
+		"id": "background-white",
+		"label": "White",
+		"category": "background",
+		"type": "color",
+		"value": "#ffffff",
+		"order": 0
+	},
+	{
+		"id": "background-light-gray",
+		"label": "Light Gray",
+		"category": "background",
+		"type": "color",
+		"value": "#f0f0f0",
+		"order": 1
+	},
+	{
+		"id": "background-yellow",
+		"label": "Light Yellow",
+		"category": "background",
+		"type": "color",
+		"value": "#fff5ad",
+		"order": 2
+	},
+	{
+		"id": "background-cream",
+		"label": "Cream",
+		"category": "background",
+		"type": "color",
+		"value": "#faf8f3",
+		"order": 3
+	},
+	{
+		"id": "background-blue",
+		"label": "Light Blue",
+		"category": "background",
+		"type": "color",
+		"value": "#e8f4f8",
+		"order": 4
+	},
+	{
+		"id": "background-beige",
+		"label": "Beige",
+		"category": "background",
+		"type": "color",
+		"value": "#f5f5dc",
 		"order": 5
 	}
 ]

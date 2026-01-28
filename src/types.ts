@@ -1,4 +1,4 @@
-export type TextureCategory = 'countertop' | 'backsplash' | 'cabinet' | 'floor'
+export type TextureCategory = 'countertop' | 'backsplash' | 'cabinet' | 'floor' | 'background'
 
 export type TextureType = 'color' | 'texture'
 
@@ -28,4 +28,17 @@ export interface KitchenSelections {
 	backsplash: string
 	cabinet: string
 	floor: string
+	background: string
+}
+
+export interface Theme {
+	id: string
+	name: string
+	description?: string
+	countertop: string
+	backsplash: string
+	cabinet: string
+	floor: string
+	background: string
+	order: number
 }

@@ -37,6 +37,7 @@ collections:
 									- { label: "Backsplash", value: "backsplash" }
 									- { label: "Cabinet", value: "cabinet" }
 									- { label: "Floor", value: "floor" }
+									- { label: "Background", value: "background" }
 							- name: "type"
 								label: "Type"
 								widget: "select"
@@ -67,4 +68,27 @@ collections:
 							- { name: "maskCabinetUrl", label: "Mask cabinet URL", widget: "string" }
 							- { name: "maskFloorUrl", label: "Mask floor URL", widget: "string" }
 							- { name: "isDefault", label: "Default scene", widget: "boolean", default: false }
+							- { name: "order", label: "Order", widget: "number", value_type: "int", min: 0 }
+
+	- name: "themes"
+		label: "Themes"
+		files:
+			- name: "themes"
+				label: "Theme presets"
+				file: "public/content/themes.json"
+				format: "json"
+				fields:
+					- name: "themes"
+						label: "Themes"
+						widget: "list"
+						summary: "{{fields.name}}"
+						fields:
+							- { name: "id", label: "ID", widget: "string" }
+							- { name: "name", label: "Name", widget: "string" }
+							- { name: "description", label: "Description", widget: "string", required: false }
+							- { name: "countertop", label: "Countertop texture ID", widget: "string" }
+							- { name: "backsplash", label: "Backsplash texture ID", widget: "string" }
+							- { name: "cabinet", label: "Cabinet texture ID", widget: "string" }
+							- { name: "floor", label: "Floor texture ID", widget: "string" }
+							- { name: "background", label: "Background texture ID", widget: "string" }
 							- { name: "order", label: "Order", widget: "number", value_type: "int", min: 0 }

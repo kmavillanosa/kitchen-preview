@@ -1,0 +1,92 @@
+{
+	"themes": [
+		{
+			"id": "modern-white",
+			"name": "Modern White",
+			"description": "Clean and minimalist white kitchen",
+			"countertop": "countertop-quartz-white",
+			"backsplash": "backsplash-subway-white",
+			"cabinet": "cabinet-white",
+			"floor": "floor-light-wood",
+			"background": "background-white",
+			"order": 0
+		},
+		{
+			"id": "classic-wood",
+			"name": "Classic Wood",
+			"description": "Warm traditional wood kitchen",
+			"countertop": "countertop-butcher-block",
+			"backsplash": "backsplash-herringbone",
+			"cabinet": "cabinet-oak-wood",
+			"floor": "floor-dark-wood",
+			"background": "background-cream",
+			"order": 1
+		},
+		{
+			"id": "dark-elegant",
+			"name": "Dark Elegant",
+			"description": "Sophisticated dark kitchen design",
+			"countertop": "countertop-granite-dark",
+			"backsplash": "backsplash-subway-gray",
+			"cabinet": "cabinet-navy",
+			"floor": "floor-dark-wood",
+			"background": "background-light-gray",
+			"order": 2
+		},
+		{
+			"id": "coastal",
+			"name": "Coastal",
+			"description": "Bright and airy coastal style",
+			"countertop": "countertop-quartz-white",
+			"backsplash": "backsplash-mosaic-blue",
+			"cabinet": "cabinet-white",
+			"floor": "floor-oak",
+			"background": "background-blue",
+			"order": 3
+		},
+		{
+			"id": "industrial",
+			"name": "Industrial",
+			"description": "Modern industrial aesthetic",
+			"countertop": "countertop-concrete",
+			"backsplash": "backsplash-brick",
+			"cabinet": "cabinet-gray",
+			"floor": "floor-tile-gray",
+			"background": "background-light-gray",
+			"order": 4
+		},
+		{
+			"id": "warm-traditional",
+			"name": "Warm Traditional",
+			"description": "Cozy traditional kitchen",
+			"countertop": "countertop-marble-white",
+			"backsplash": "backsplash-herringbone",
+			"cabinet": "cabinet-cream",
+			"floor": "floor-light-wood",
+			"background": "background-cream",
+			"order": 5
+		},
+		{
+			"id": "modern-gray",
+			"name": "Modern Gray",
+			"description": "Contemporary gray palette",
+			"countertop": "countertop-quartz-gray",
+			"backsplash": "backsplash-subway-gray",
+			"cabinet": "cabinet-gray",
+			"floor": "floor-stone",
+			"background": "background-light-gray",
+			"order": 6
+		},
+		{
+			"id": "luxury-walnut",
+			"name": "Luxury Walnut",
+			"description": "Rich walnut and marble",
+			"countertop": "countertop-marble-white",
+			"backsplash": "backsplash-stone",
+			"cabinet": "cabinet-walnut-wood",
+			"floor": "floor-dark-wood",
+			"background": "background-beige",
+			"order": 7
+		}
+	]
+}

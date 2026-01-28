@@ -10,7 +10,9 @@ interface KitchenPreviewCanvasProps {
 		backsplash: TextureOption | undefined
 		cabinet: TextureOption | undefined
 		floor: TextureOption | undefined
+		background: TextureOption | undefined
 	}
+	onSvgReady?: (svg: SVGSVGElement | null) => void
 }
 
 function loadImage(src: string): Promise<HTMLImageElement> {
@@ -26,10 +28,24 @@ function loadImage(src: string): Promise<HTMLImageElement> {
 export function KitchenPreviewCanvas({
 	scene,
 	selections,
+	onSvgReady,
 }: KitchenPreviewCanvasProps) {
 	const svgRef = useRef<SVGSVGElement>(null)
 	const lastSelectionsRef = useRef<string>('')
 	const svgLoadedRef = useRef(false)
+
+	// Notify when SVG is ready (called from loadSvg and after texture updates)
+	useEffect(() => {
+		if (onSvgReady && svgRef.current && svgLoadedRef.current) {
+			onSvgReady(svgRef.current)
+		}
+		return () => {
+			if (onSvgReady) {
+				onSvgReady(null)
+			}
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [onSvgReady])
 
 	const updateSurface = async (
 		svg: SVGSVGElement,
@@ -104,6 +120,8 @@ export function KitchenPreviewCanvas({
 	}
 
 	const applyTextures = async (svg: SVGSVGElement) => {
+		// Update background first
+		await updateSurface(svg, ['background-surface'], selections.background)
 		// Update each surface - apply backsplash first, then cabinets on top
 		await updateSurface(svg, ['floor-surface', 'floor-surface-main'], selections.floor)
 		// Countertop on the three circled areas: left cabinet, main countertop, right cabinet
@@ -143,6 +161,16 @@ export function KitchenPreviewCanvas({
 				'cabinet-surface-1',
 				'cabinet-surface-2',
 				'cabinet-surface-3',
+				'cabinet-surface-4',
+				'cabinet-surface-5',
+				'cabinet-surface-6',
+				'cabinet-surface-7',
+				'cabinet-surface-8',
+				'cabinet-surface-9',
+				'cabinet-surface-10',
+				'cabinet-surface-11',
+				'cabinet-surface-12',
+				'cabinet-surface-13',
 			],
 			selections.cabinet,
 		)
@@ -178,6 +206,11 @@ export function KitchenPreviewCanvas({
 
 				// Apply textures after SVG is loaded
 				await applyTextures(svg)
+				
+				// Notify that SVG is ready
+				if (onSvgReady) {
+					onSvgReady(svg)
+				}
 			} catch (error) {
 				console.error('Failed to load SVG:', error)
 			}
@@ -197,6 +230,7 @@ export function KitchenPreviewCanvas({
 			backsplash: selections.backsplash?.id,
 			cabinet: selections.cabinet?.id,
 			floor: selections.floor?.id,
+			background: selections.background?.id,
 		})
 
 		// Skip if selections haven't changed
@@ -205,11 +239,21 @@ export function KitchenPreviewCanvas({
 		}
 
 		lastSelectionsRef.current = selectionsKey
-		applyTextures(svg)
-	}, [scene.id, selections.countertop?.id, selections.backsplash?.id, selections.cabinet?.id, selections.floor?.id])
+		applyTextures(svg).then(() => {
+			// Notify that SVG is ready after textures are applied
+			if (onSvgReady && svg) {
+				onSvgReady(svg)
+			}
+		})
+	}, [scene.id, selections.countertop?.id, selections.backsplash?.id, selections.cabinet?.id, selections.floor?.id, selections.background?.id, onSvgReady])
+
+	const backgroundColor = selections.background?.value ?? '#f0f0f0'
 
 	return (
-		<div className="kitchen-preview-wrapper">
+		<div
+			className="kitchen-preview-wrapper"
+			style={{ backgroundColor }}
+		>
 			<svg
 				ref={svgRef}
 				className="kitchen-preview-canvas"

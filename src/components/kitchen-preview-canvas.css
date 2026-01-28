@@ -4,6 +4,9 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	border-radius: 8px;
+	padding: 1rem;
+	transition: background-color 0.3s ease;
 }
 
 .kitchen-preview-canvas {
@@ -13,5 +16,5 @@
 	height: auto;
 	border-radius: 8px;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-	background: #f0f0f0;
+	background: transparent;
 }
