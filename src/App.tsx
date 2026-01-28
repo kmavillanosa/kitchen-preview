@@ -1,4 +1,5 @@
 import { useMemo, useState, useEffect, useRef } from 'react'
+import './App.css'
 import {
 	getTexturesByCategory,
 	getDefaultScene,
@@ -63,6 +64,7 @@ function App() {
 	}, [contentReady])
 	const svgRef = useRef<SVGSVGElement | null>(null)
 	const [isExporting, setIsExporting] = useState(false)
+	const [activeTab, setActiveTab] = useState<'themes' | 'colors'>('themes')
 
 	const textureMap = useMemo(() => {
 		const list = getTextures()
@@ -211,52 +213,88 @@ function App() {
 			</div>
 		</header>
 		<main className="app__main">
-			<div className="app__themes-section">
-				<ThemeSelector
-					themes={themes}
-					selectedThemeId={selectedThemeId}
-					onSelect={handleThemeSelect}
-					textures={textureMap}
-				/>
-			</div>
 			<div className="app__main-content">
 				<aside className="app__sidebar">
-					<div className="app__sidebar-header">
-						<h2 className="app__sidebar-title">Customize Colors</h2>
-						<p className="app__sidebar-subtitle">
-							Select individual colors for each element
-						</p>
+					<div className="app__tabs">
+						<button
+							type="button"
+							className={`app__tab ${activeTab === 'themes' ? 'app__tab--active' : ''}`}
+							onClick={() => setActiveTab('themes')}
+							aria-selected={activeTab === 'themes'}
+							aria-controls="themes-panel"
+							id="themes-tab"
+						>
+							Themes
+						</button>
+						<button
+							type="button"
+							className={`app__tab ${activeTab === 'colors' ? 'app__tab--active' : ''}`}
+							onClick={() => setActiveTab('colors')}
+							aria-selected={activeTab === 'colors'}
+							aria-controls="colors-panel"
+							id="colors-tab"
+						>
+							Colors
+						</button>
 					</div>
-					<TextureSelector
-						title="Countertop"
-						options={getTexturesByCategory('countertop')}
-						selectedId={selections.countertop}
-						onSelect={handleSelect('countertop')}
-					/>
-					<TextureSelector
-						title="Backsplash"
-						options={getTexturesByCategory('backsplash')}
-						selectedId={selections.backsplash}
-						onSelect={handleSelect('backsplash')}
-					/>
-					<TextureSelector
-						title="Cabinet color"
-						options={getTexturesByCategory('cabinet')}
-						selectedId={selections.cabinet}
-						onSelect={handleSelect('cabinet')}
-					/>
-					<TextureSelector
-						title="Floor"
-						options={getTexturesByCategory('floor')}
-						selectedId={selections.floor}
-						onSelect={handleSelect('floor')}
-					/>
-					<TextureSelector
-						title="Background"
-						options={getTexturesByCategory('background')}
-						selectedId={selections.background}
-						onSelect={handleSelect('background')}
-					/>
+					<div className="app__tab-panels">
+						<div
+							id="themes-panel"
+							role="tabpanel"
+							aria-labelledby="themes-tab"
+							className={`app__tab-panel ${activeTab === 'themes' ? 'app__tab-panel--active' : ''}`}
+						>
+							<ThemeSelector
+								themes={themes}
+								selectedThemeId={selectedThemeId}
+								onSelect={handleThemeSelect}
+								textures={textureMap}
+							/>
+						</div>
+						<div
+							id="colors-panel"
+							role="tabpanel"
+							aria-labelledby="colors-tab"
+							className={`app__tab-panel ${activeTab === 'colors' ? 'app__tab-panel--active' : ''}`}
+						>
+							<div className="app__sidebar-header">
+								<h2 className="app__sidebar-title">Customize Colors</h2>
+								<p className="app__sidebar-subtitle">
+									Select individual colors for each element
+								</p>
+							</div>
+							<TextureSelector
+								title="Countertop"
+								options={getTexturesByCategory('countertop')}
+								selectedId={selections.countertop}
+								onSelect={handleSelect('countertop')}
+							/>
+							<TextureSelector
+								title="Backsplash"
+								options={getTexturesByCategory('backsplash')}
+								selectedId={selections.backsplash}
+								onSelect={handleSelect('backsplash')}
+							/>
+							<TextureSelector
+								title="Cabinet color"
+								options={getTexturesByCategory('cabinet')}
+								selectedId={selections.cabinet}
+								onSelect={handleSelect('cabinet')}
+							/>
+							<TextureSelector
+								title="Floor"
+								options={getTexturesByCategory('floor')}
+								selectedId={selections.floor}
+								onSelect={handleSelect('floor')}
+							/>
+							<TextureSelector
+								title="Background"
+								options={getTexturesByCategory('background')}
+								selectedId={selections.background}
+								onSelect={handleSelect('background')}
+							/>
+						</div>
+					</div>
 				</aside>
 				<section className="app__preview" aria-label="Preview">
 					<KitchenPreviewCanvas

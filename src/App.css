@@ -121,15 +121,6 @@
 	width: 100%;
 }
 
-.app__themes-section {
-	background: #ffffff;
-	padding: 1.5rem;
-	border-radius: 16px;
-	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-	border: 1px solid #e2e8f0;
-	width: 100%;
-}
-
 .app__main-content {
 	display: grid;
 	grid-template-columns: 320px 1fr;
@@ -139,15 +130,84 @@
 
 .app__sidebar {
 	background: #ffffff;
-	padding: 1.5rem;
+	padding: 0;
 	border-radius: 16px;
 	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 	height: fit-content;
 	max-height: calc(100vh - 140px);
-	overflow-y: auto;
+	overflow: hidden;
 	position: sticky;
 	top: 100px;
 	border: 1px solid #e2e8f0;
+	display: flex;
+	flex-direction: column;
+}
+
+.app__tabs {
+	display: flex;
+	border-bottom: 2px solid #f1f5f9;
+	background: #f8fafc;
+	border-radius: 16px 16px 0 0;
+}
+
+.app__tab {
+	flex: 1;
+	padding: 1rem 1.5rem;
+	background: transparent;
+	border: none;
+	border-bottom: 3px solid transparent;
+	font-size: 0.9375rem;
+	font-weight: 600;
+	color: #64748b;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	position: relative;
+}
+
+.app__tab:hover {
+	color: #2563eb;
+	background: rgba(37, 99, 235, 0.05);
+}
+
+.app__tab:focus {
+	outline: none;
+	color: #2563eb;
+}
+
+.app__tab:focus-visible {
+	outline: 2px solid #2563eb;
+	outline-offset: -2px;
+}
+
+.app__tab--active {
+	color: #2563eb;
+	border-bottom-color: #2563eb;
+	background: #ffffff;
+}
+
+.app__tab-panels {
+	flex: 1;
+	overflow-y: auto;
+	position: relative;
+}
+
+.app__tab-panel {
+	display: none;
+	padding: 1.5rem;
+	animation: fadeIn 0.2s ease;
+}
+
+.app__tab-panel--active {
+	display: block;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 .app__sidebar-header {
@@ -181,21 +241,21 @@
 	line-height: 1.5;
 }
 
-.app__sidebar::-webkit-scrollbar {
+.app__tab-panels::-webkit-scrollbar {
 	width: 8px;
 }
 
-.app__sidebar::-webkit-scrollbar-track {
+.app__tab-panels::-webkit-scrollbar-track {
 	background: #f8fafc;
 	border-radius: 4px;
 }
 
-.app__sidebar::-webkit-scrollbar-thumb {
+.app__tab-panels::-webkit-scrollbar-thumb {
 	background: #cbd5e1;
 	border-radius: 4px;
 }
 
-.app__sidebar::-webkit-scrollbar-thumb:hover {
+.app__tab-panels::-webkit-scrollbar-thumb:hover {
 	background: #94a3b8;
 }
 

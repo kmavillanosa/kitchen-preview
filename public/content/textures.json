@@ -319,6 +319,94 @@
 			"type": "color",
 			"value": "#faf7f2",
 			"order": 7
+		},
+		{
+			"id": "background-soft-pink",
+			"label": "Soft Blush",
+			"category": "background",
+			"type": "color",
+			"value": "#faf5f2",
+			"order": 8
+		},
+		{
+			"id": "background-lavender",
+			"label": "Lavender Mist",
+			"category": "background",
+			"type": "color",
+			"value": "#f5f3f8",
+			"order": 9
+		},
+		{
+			"id": "background-mint",
+			"label": "Mint Fresh",
+			"category": "background",
+			"type": "color",
+			"value": "#f0f8f5",
+			"order": 10
+		},
+		{
+			"id": "background-peach",
+			"label": "Peach Cream",
+			"category": "background",
+			"type": "color",
+			"value": "#fef7f0",
+			"order": 11
+		},
+		{
+			"id": "background-charcoal",
+			"label": "Charcoal",
+			"category": "background",
+			"type": "color",
+			"value": "#2d2d2d",
+			"order": 12
+		},
+		{
+			"id": "background-warm-gray",
+			"label": "Warm Gray",
+			"category": "background",
+			"type": "color",
+			"value": "#e8e6e3",
+			"order": 13
+		},
+		{
+			"id": "background-sand",
+			"label": "Sand",
+			"category": "background",
+			"type": "color",
+			"value": "#f5f0e8",
+			"order": 14
+		},
+		{
+			"id": "background-stone",
+			"label": "Stone",
+			"category": "background",
+			"type": "color",
+			"value": "#e8e6e1",
+			"order": 15
+		},
+		{
+			"id": "background-oatmeal",
+			"label": "Oatmeal",
+			"category": "background",
+			"type": "color",
+			"value": "#f3f1eb",
+			"order": 16
+		},
+		{
+			"id": "background-eggshell",
+			"label": "Eggshell",
+			"category": "background",
+			"type": "color",
+			"value": "#f0efe8",
+			"order": 17
+		},
+		{
+			"id": "background-rose-quartz",
+			"label": "Rose Quartz",
+			"category": "background",
+			"type": "color",
+			"value": "#f8f2f0",
+			"order": 18
 		}
 	]
 }

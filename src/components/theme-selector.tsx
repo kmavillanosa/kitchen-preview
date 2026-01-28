@@ -37,7 +37,6 @@ export function ThemeSelector({
 
 	return (
 		<div className="theme-selector">
-			<h2 className="theme-selector__title">Themes</h2>
 			<p className="theme-selector__description">
 				Choose a predefined theme to apply all settings at once
 			</p>

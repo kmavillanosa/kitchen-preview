@@ -47,10 +47,102 @@ export function KitchenPreviewCanvas({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [onSvgReady])
 
+	const createTilePattern = (svg: SVGSVGElement, baseColor: string): string => {
+		const patternId = 'floor-tile-pattern'
+		
+		let defs = svg.querySelector('defs')
+		if (!defs) {
+			defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs')
+			svg.insertBefore(defs, svg.firstChild)
+		}
+
+		// Remove existing pattern if it exists to force update
+		const existingPattern = svg.querySelector(`#${patternId}`)
+		if (existingPattern) {
+			existingPattern.remove()
+		}
+
+		// Create new tile pattern with current color
+		const pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern')
+		pattern.setAttribute('id', patternId)
+		pattern.setAttribute('x', '0')
+		pattern.setAttribute('y', '0')
+		pattern.setAttribute('width', '40')
+		pattern.setAttribute('height', '40')
+		pattern.setAttribute('patternUnits', 'userSpaceOnUse')
+
+		// Create tile background
+		const tileRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+		tileRect.setAttribute('width', '40')
+		tileRect.setAttribute('height', '40')
+		tileRect.setAttribute('fill', baseColor)
+		pattern.appendChild(tileRect)
+
+		// Create grout lines (darker lines between tiles)
+		const groutColor = adjustColorBrightness(baseColor, -15)
+		
+		// Horizontal grout line
+		const hLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+		hLine.setAttribute('x1', '0')
+		hLine.setAttribute('y1', '40')
+		hLine.setAttribute('x2', '40')
+		hLine.setAttribute('y2', '40')
+		hLine.setAttribute('stroke', groutColor)
+		hLine.setAttribute('stroke-width', '1')
+		pattern.appendChild(hLine)
+
+		// Vertical grout line
+		const vLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+		vLine.setAttribute('x1', '40')
+		vLine.setAttribute('y1', '0')
+		vLine.setAttribute('x2', '40')
+		vLine.setAttribute('y2', '40')
+		vLine.setAttribute('stroke', groutColor)
+		vLine.setAttribute('stroke-width', '1')
+		pattern.appendChild(vLine)
+
+		defs.appendChild(pattern)
+		return patternId
+	}
+
+	const adjustColorBrightness = (color: string, percent: number): string => {
+		// Convert hex to RGB
+		const hex = color.replace('#', '')
+		const r = parseInt(hex.substring(0, 2), 16)
+		const g = parseInt(hex.substring(2, 4), 16)
+		const b = parseInt(hex.substring(4, 6), 16)
+
+		// Calculate luminance to determine if color is light or dark
+		const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+		
+		// Adjust brightness - darker for light colors, lighter for dark colors
+		const factor = percent / 100
+		let newR = Math.max(0, Math.min(255, Math.round(r * (1 - Math.abs(factor)))))
+		let newG = Math.max(0, Math.min(255, Math.round(g * (1 - Math.abs(factor)))))
+		let newB = Math.max(0, Math.min(255, Math.round(b * (1 - Math.abs(factor)))))
+
+		// Ensure grout is always darker
+		if (luminance > 0.5) {
+			// Light color - make grout darker
+			newR = Math.max(0, Math.min(255, Math.round(r * 0.7)))
+			newG = Math.max(0, Math.min(255, Math.round(g * 0.7)))
+			newB = Math.max(0, Math.min(255, Math.round(b * 0.7)))
+		} else {
+			// Dark color - make grout slightly darker
+			newR = Math.max(0, Math.min(255, Math.round(r * 0.85)))
+			newG = Math.max(0, Math.min(255, Math.round(g * 0.85)))
+			newB = Math.max(0, Math.min(255, Math.round(b * 0.85)))
+		}
+
+		// Convert back to hex
+		return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`
+	}
+
 	const updateSurface = async (
 		svg: SVGSVGElement,
 		elementId: string | string[],
 		opt: TextureOption | undefined,
+		isFloor: boolean = false,
 	) => {
 		const ids = Array.isArray(elementId) ? elementId : [elementId]
 		const elements = ids.map((id) => svg.querySelector(`#${id}`)).filter(Boolean) as SVGElement[]
@@ -68,10 +160,22 @@ export function KitchenPreviewCanvas({
 
 		if (opt.type === 'color') {
 			// Apply color directly - inline styles take precedence, so set style.fill directly
+			let fillValue = opt.value
+			
+			// Add tile pattern for floors
+			if (isFloor) {
+				const patternId = createTilePattern(svg, opt.value)
+				fillValue = `url(#${patternId})`
+			}
+			
 			elements.forEach((el) => {
-				el.setAttribute('fill', opt.value)
-				// Directly set style.fill to override inline style attribute
-				el.style.fill = opt.value
+				// Clear any existing inline style first
+				el.style.fill = ''
+				el.style.stroke = ''
+				// Set the new fill value
+				el.setAttribute('fill', fillValue)
+				// Also set style.fill to ensure it applies
+				el.style.fill = fillValue
 			})
 		} else {
 			// For texture images, create a pattern
@@ -103,10 +207,20 @@ export function KitchenPreviewCanvas({
 					defs.appendChild(pattern)
 				}
 
+				let fillValue = `url(#${patternId})`
+				
+				// Add tile pattern overlay for floors
+				if (isFloor) {
+					const tilePatternId = createTilePattern(svg, '#888')
+					// Use a group with both patterns
+					fillValue = `url(#${patternId})`
+					// Note: We'll apply the tile pattern as an overlay using a mask or separate element
+				}
+
 				elements.forEach((el) => {
-					el.setAttribute('fill', `url(#${patternId})`)
+					el.setAttribute('fill', fillValue)
 					// Directly set style.fill to override inline style
-					el.style.fill = `url(#${patternId})`
+					el.style.fill = fillValue
 				})
 			} catch (error) {
 				console.error('Failed to load texture:', error)
@@ -123,7 +237,8 @@ export function KitchenPreviewCanvas({
 		// Update background first
 		await updateSurface(svg, ['background-surface'], selections.background)
 		// Update each surface - apply backsplash first, then cabinets on top
-		await updateSurface(svg, ['floor-surface', 'floor-surface-main'], selections.floor)
+		// Apply tile pattern to floor
+		await updateSurface(svg, ['floor-surface', 'floor-surface-main'], selections.floor, true)
 		// Countertop - all elements with #8d8975 color
 		// Exclude fridge-door-surface and fridge-door-surface-2 (they're not countertops)
 		// Exclude countertop-surface-3 (it's actually a cabinet door)
@@ -298,12 +413,34 @@ export function KitchenPreviewCanvas({
 		})
 	}, [scene.id, selections.countertop?.id, selections.backsplash?.id, selections.cabinet?.id, selections.floor?.id, selections.background?.id, onSvgReady])
 
-	const backgroundColor = selections.background?.value ?? '#f0f0f0'
+	const backgroundColor = selections.background?.value ?? '#f8fafc'
+	
+	// Calculate grid line color based on background brightness
+	const getGridColor = (bgColor: string): string => {
+		const hex = bgColor.replace('#', '')
+		const r = parseInt(hex.substring(0, 2), 16)
+		const g = parseInt(hex.substring(2, 4), 16)
+		const b = parseInt(hex.substring(4, 6), 16)
+		const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+		
+		// Use darker grid for light backgrounds, lighter for dark backgrounds
+		return luminance > 0.5 
+			? 'rgba(0, 0, 0, 0.06)' 
+			: 'rgba(255, 255, 255, 0.1)'
+	}
+	
+	const gridColor = getGridColor(backgroundColor)
 
 	return (
 		<div
 			className="kitchen-preview-wrapper"
-			style={{ backgroundColor }}
+			style={{ 
+				backgroundColor,
+				backgroundImage: `
+					linear-gradient(${gridColor} 1px, transparent 1px),
+					linear-gradient(90deg, ${gridColor} 1px, transparent 1px)
+				`
+			}}
 		>
 			<svg
 				ref={svgRef}
