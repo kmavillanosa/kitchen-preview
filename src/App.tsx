@@ -17,7 +17,7 @@ import { ThemeSelector } from './components/theme-selector'
 import { KitchenPreviewCanvas } from './components/kitchen-preview-canvas'
 import { Dashboard } from './components/dashboard'
 import { exportToPdf, captureSvgAsImage } from './lib/pdf-export'
-import { saveDesign, generateThumbnail } from './lib/storage'
+import { saveDesign, generateThumbnail, getAllSavedDesigns } from './lib/storage'
 import type { KitchenSelections, TextureOption, Theme, SavedDesign } from './types'
 import './App.css'
 
@@ -283,29 +283,34 @@ function App() {
 	}
 
 	if (view === 'dashboard') {
+		const savedDesigns = getAllSavedDesigns()
+		const isLandingPage = savedDesigns.length === 0
+		
 		return (
 			<div className="app">
-				<header className="app__header">
-					<div className="app__logo">
-						<svg className="app__logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<rect x="4" y="6" width="24" height="20" rx="2" fill="url(#logoGradient)" opacity="0.1"/>
-							<path d="M8 12H24M8 16H24M8 20H20" stroke="url(#logoGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-							<circle cx="12" cy="8" r="1.5" fill="url(#logoGradient)"/>
-							<circle cx="20" cy="8" r="1.5" fill="url(#logoGradient)"/>
-							<path d="M26 10L28 12L26 14" stroke="url(#logoGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-							<defs>
-								<linearGradient id="logoGradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-									<stop stopColor="#2563eb"/>
-									<stop offset="1" stopColor="#1e40af"/>
-								</linearGradient>
-							</defs>
-						</svg>
-						<div className="app__logo-text">
-							<span className="app__logo-name">Kitchen Preview</span>
-							<span className="app__logo-tagline">Design Studio</span>
+				{!isLandingPage && (
+					<header className="app__header">
+						<div className="app__logo">
+							<svg className="app__logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<rect x="4" y="6" width="24" height="20" rx="2" fill="url(#logoGradient)" opacity="0.1"/>
+								<path d="M8 12H24M8 16H24M8 20H20" stroke="url(#logoGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+								<circle cx="12" cy="8" r="1.5" fill="url(#logoGradient)"/>
+								<circle cx="20" cy="8" r="1.5" fill="url(#logoGradient)"/>
+								<path d="M26 10L28 12L26 14" stroke="url(#logoGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+								<defs>
+									<linearGradient id="logoGradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+										<stop stopColor="#2563eb"/>
+										<stop offset="1" stopColor="#1e40af"/>
+									</linearGradient>
+								</defs>
+							</svg>
+							<div className="app__logo-text">
+								<span className="app__logo-name">Kitchen Preview</span>
+								<span className="app__logo-tagline">Design Studio</span>
+							</div>
 						</div>
-					</div>
-				</header>
+					</header>
+				)}
 				<main className="app__main">
 					<Dashboard onLoadDesign={handleLoadDesign} onNewDesign={handleNewDesign} />
 				</main>
@@ -443,9 +448,6 @@ function App() {
 						</>
 					)}
 				</button>
-				<a href="/kitchen-preview/admin/" className="app__admin-link">
-					Admin
-				</a>
 			</div>
 		</header>
 		<main className="app__main">

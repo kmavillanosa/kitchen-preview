@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { getAllSavedDesigns, deleteSavedDesign } from '../lib/storage'
-import { getAssetUrl } from '../lib/content'
+import { getAllSavedDesigns, deleteSavedDesign, deleteAllSavedDesigns } from '../lib/storage'
+import { getAssetUrl, getThemeById, getScenes } from '../lib/content'
 import type { SavedDesign } from '../types'
 import './dashboard.css'
 
@@ -12,9 +12,13 @@ interface DashboardProps {
 export function Dashboard({ onLoadDesign, onNewDesign }: DashboardProps) {
 	const [designs, setDesigns] = useState<SavedDesign[]>([])
 	const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null)
+	const [showDeleteAllConfirm, setShowDeleteAllConfirm] = useState(false)
+	const [isAnimating, setIsAnimating] = useState(true)
 
 	useEffect(() => {
 		setDesigns(getAllSavedDesigns())
+		// Trigger animation after component mounts
+		setTimeout(() => setIsAnimating(false), 100)
 	}, [])
 
 	const handleDelete = (id: string) => {
@@ -30,6 +34,17 @@ export function Dashboard({ onLoadDesign, onNewDesign }: DashboardProps) {
 
 	const handleLoad = (design: SavedDesign) => {
 		onLoadDesign(design)
+	}
+
+	const handleDeleteAll = () => {
+		if (showDeleteAllConfirm) {
+			if (deleteAllSavedDesigns()) {
+				setDesigns([])
+				setShowDeleteAllConfirm(false)
+			}
+		} else {
+			setShowDeleteAllConfirm(true)
+		}
 	}
 
 	if (designs.length === 0) {
@@ -144,7 +159,7 @@ export function Dashboard({ onLoadDesign, onNewDesign }: DashboardProps) {
 	}
 
 	return (
-		<div className="dashboard">
+		<div className={`dashboard ${isAnimating ? 'dashboard--animating' : ''}`}>
 			<div className="dashboard__header">
 				<div>
 					<h1 className="dashboard__title">My Designs</h1>
@@ -152,79 +167,151 @@ export function Dashboard({ onLoadDesign, onNewDesign }: DashboardProps) {
 						{designs.length} {designs.length === 1 ? 'design' : 'designs'} saved
 					</p>
 				</div>
-				<button
-					type="button"
-					className="dashboard__new-btn dashboard__new-btn--header"
-					onClick={onNewDesign}
-				>
-					<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M8 3V13M3 8H13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-					</svg>
-					New Design
-				</button>
+				<div className="dashboard__header-actions">
+					<button
+						type="button"
+						className="dashboard__delete-all-btn"
+						onClick={handleDeleteAll}
+						aria-label="Delete all designs"
+					>
+						{showDeleteAllConfirm ? (
+							<>
+								<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M4 8H12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+								</svg>
+								Confirm Delete All
+							</>
+						) : (
+							<>
+								<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M4 6H12M6 6V14C6 14.5523 6.44772 15 7 15H9C9.55228 15 10 14.5523 10 14V6M6 6V4C6 3.44772 6.44772 3 7 3H9C9.55228 3 10 3.44772 10 4V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+								</svg>
+								Delete All
+							</>
+						)}
+					</button>
+					<button
+						type="button"
+						className="dashboard__new-btn dashboard__new-btn--header"
+						onClick={onNewDesign}
+					>
+						<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M8 3V13M3 8H13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+						</svg>
+						New Design
+					</button>
+				</div>
 			</div>
 			<div className="dashboard__grid">
-				{designs.map((design) => (
-					<div key={design.id} className="dashboard__card">
-						<div className="dashboard__card-thumbnail">
-							{design.thumbnail ? (
-								<img src={design.thumbnail} alt={design.name} />
-							) : (
-								<div className="dashboard__card-placeholder">
-									<svg viewBox="0 0 64 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<rect width="64" height="48" fill="#f3f4f6" stroke="#d1d5db" strokeWidth="1"/>
-										<path d="M20 20H44M20 28H36M20 36H28" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-									</svg>
-								</div>
-							)}
-						</div>
-						<div className="dashboard__card-content">
-							<h3 className="dashboard__card-title">{design.name}</h3>
-							<p className="dashboard__card-date">
-								{new Date(design.updatedAt).toLocaleDateString('en-US', {
-									month: 'short',
-									day: 'numeric',
-									year: 'numeric',
-								})}
-							</p>
-						</div>
-						<div className="dashboard__card-actions">
-							<button
-								type="button"
-								className="dashboard__card-btn dashboard__card-btn--load"
-								onClick={() => handleLoad(design)}
-								aria-label={`Load ${design.name}`}
-							>
-								<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M8 3V13M3 8L8 3L13 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-								</svg>
-								Load
-							</button>
-							<button
-								type="button"
-								className="dashboard__card-btn dashboard__card-btn--delete"
-								onClick={() => handleDelete(design.id)}
-								aria-label={`Delete ${design.name}`}
-							>
-								{deleteConfirmId === design.id ? (
-									<>
-										<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M4 8H12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-										</svg>
-										Confirm
-									</>
+				{designs.map((design, index) => {
+					const theme = design.themeId ? getThemeById(design.themeId) : null
+					const scene = getScenes().find(s => s.id === design.sceneId)
+					const updatedDate = new Date(design.updatedAt)
+					const isRecent = Date.now() - updatedDate.getTime() < 7 * 24 * 60 * 60 * 1000 // 7 days
+					
+					return (
+						<div 
+							key={design.id} 
+							className="dashboard__card"
+							style={{ animationDelay: `${index * 0.05}s` }}
+						>
+							<div className="dashboard__card-thumbnail">
+								{design.thumbnail ? (
+									<img src={design.thumbnail} alt={design.name} />
 								) : (
-									<>
-										<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M4 6H12M6 6V14C6 14.5523 6.44772 15 7 15H9C9.55228 15 10 14.5523 10 14V6M6 6V4C6 3.44772 6.44772 3 7 3H9C9.55228 3 10 3.44772 10 4V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+									<div className="dashboard__card-placeholder">
+										<svg viewBox="0 0 64 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<rect width="64" height="48" fill="#f3f4f6" stroke="#d1d5db" strokeWidth="1"/>
+											<path d="M20 20H44M20 28H36M20 36H28" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 										</svg>
-										Delete
-									</>
+									</div>
 								)}
-							</button>
+								<div className="dashboard__card-overlay">
+									<button
+										type="button"
+										className="dashboard__card-preview-btn"
+										onClick={() => handleLoad(design)}
+										aria-label={`Preview ${design.name}`}
+									>
+										<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3ZM8 11C6.34315 11 5 9.65685 5 8C5 6.34315 6.34315 5 8 5C9.65685 5 11 6.34315 11 8C11 9.65685 9.65685 11 8 11Z" fill="currentColor"/>
+											<path d="M8 5.5C7.58579 5.5 7.25 5.83579 7.25 6.25C7.25 6.66421 7.58579 7 8 7C8.41421 7 8.75 6.66421 8.75 6.25C8.75 5.83579 8.41421 5.5 8 5.5Z" fill="currentColor"/>
+										</svg>
+										Preview
+									</button>
+								</div>
+							</div>
+							<div className="dashboard__card-content">
+								<div className="dashboard__card-header">
+									<h3 className="dashboard__card-title">{design.name}</h3>
+									{isRecent && (
+										<span className="dashboard__card-badge">New</span>
+									)}
+								</div>
+								<div className="dashboard__card-meta">
+									{theme && (
+										<div className="dashboard__card-meta-item">
+											<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M12 2L2 7L12 12L14 7L12 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+											</svg>
+											<span>{theme.name}</span>
+										</div>
+									)}
+									{scene && (
+										<div className="dashboard__card-meta-item">
+											<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<rect x="2" y="4" width="12" height="8" rx="1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+											</svg>
+											<span>{scene.name}</span>
+										</div>
+									)}
+								</div>
+								<p className="dashboard__card-date">
+									Updated {updatedDate.toLocaleDateString('en-US', {
+										month: 'short',
+										day: 'numeric',
+										year: updatedDate.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined,
+									})}
+								</p>
+							</div>
+							<div className="dashboard__card-actions">
+								<button
+									type="button"
+									className="dashboard__card-btn dashboard__card-btn--load"
+									onClick={() => handleLoad(design)}
+									aria-label={`Load ${design.name}`}
+								>
+									<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M8 3V13M3 8L8 3L13 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+									</svg>
+									Load
+								</button>
+								<button
+									type="button"
+									className="dashboard__card-btn dashboard__card-btn--delete"
+									onClick={() => handleDelete(design.id)}
+									aria-label={`Delete ${design.name}`}
+								>
+									{deleteConfirmId === design.id ? (
+										<>
+											<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M4 8H12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+											</svg>
+											Confirm
+										</>
+									) : (
+										<>
+											<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M4 6H12M6 6V14C6 14.5523 6.44772 15 7 15H9C9.55228 15 10 14.5523 10 14V6M6 6V4C6 3.44772 6.44772 3 7 3H9C9.55228 3 10 3.44772 10 4V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+											</svg>
+											Delete
+										</>
+									)}
+								</button>
+							</div>
 						</div>
-					</div>
-				))}
+					)
+				})}
 			</div>
 		</div>
 	)

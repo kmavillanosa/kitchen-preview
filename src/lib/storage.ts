@@ -76,6 +76,16 @@ export function deleteSavedDesign(id: string): boolean {
 	return true
 }
 
+export function deleteAllSavedDesigns(): boolean {
+	try {
+		localStorage.removeItem(STORAGE_KEY)
+		return true
+	} catch (error) {
+		console.error('Failed to delete all designs:', error)
+		return false
+	}
+}
+
 export function generateThumbnail(svg: SVGSVGElement): Promise<string> {
 	return new Promise((resolve, reject) => {
 		const canvas = document.createElement('canvas')
